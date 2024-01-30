@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8562d156fb31474589a042f0e2c30814, type: 3}
+  m_Name: PlayersLibrary
+  m_EditorClassIdentifier: 
+  <PlayersData>k__BackingField:
+  - <Id>k__BackingField: Jimmy
+    <DefaultSpeed>k__BackingField: 5
+    <DefaultDamage>k__BackingField: 5
+    <DefaultKcal>k__BackingField: 100
+    <Prefab>k__BackingField: {fileID: 4856468319913869539, guid: 2e65e28dc53ba0f448bdef22c59086d8, type: 3}
+  - <Id>k__BackingField: 
+    <DefaultSpeed>k__BackingField: 0
+    <DefaultDamage>k__BackingField: 0
+    <DefaultKcal>k__BackingField: 0
+    <Prefab>k__BackingField: {fileID: 0}
