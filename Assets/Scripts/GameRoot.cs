@@ -1,8 +1,11 @@
-using System;
 using Camera.Systems;
+using Data.Loaded;
 using Data.RunTime;
 using Data.Static;
+using Enemy.Systems;
+using General.Systems;
 using Leopotam.Ecs;
+using Load.Systems;
 using Main.Systems;
 using Player.Systems;
 using Player.Systems.Init;
@@ -21,6 +24,7 @@ public class GameRoot : MonoBehaviour
     private EcsSystems _fixedUpdateSystems;
 
     private RunTimeData _runTimeData;
+    private LoadedData _loadedData;
     
     private void Awake()
     {
@@ -31,8 +35,12 @@ public class GameRoot : MonoBehaviour
         _updateSystems
             .Add(new ConvertGameObjectsToEntitiesSystem())
             .Add(new GamePhaseSystem())
+            
+            .Add(new LoadEnemiesDataSystem())
+            
             .Add(new StartGameSystem())
             .Add(new StartGamePanelPresenterSystem())
+            .Add(new GameTimeCalculateSystem())
             .Add(new JoyStickPresenterSystem())
             .Add(new CameraParametersCalculateSystem())
             .Add(new PlayerInitSystem())
@@ -45,10 +53,16 @@ public class GameRoot : MonoBehaviour
             .Add(new SpawnersCreateSystem())
             .Add(new SpawnersDistributeSystem())
             .Add(new SpawnersMoveSystem())
+            
+            .Add(new EnemySpawnSystem())
+            .Add(new EnemySpawnRequestSystem())
+            .Add(new EnemyDefaultInitSystem())
+            .Add(new EnemyDirectionFindSystem())
             ;
 
         _fixedUpdateSystems
             .Add(new PlayerMoveSystem())
+            .Add(new EnemyMoveSystem())
             ;
 
         
@@ -58,7 +72,8 @@ public class GameRoot : MonoBehaviour
 #endif
 
         _runTimeData = new RunTimeData();
-
+        _loadedData = new LoadedData();
+        
         InjectUpdateSystems();
 
         InjectFixedUpdateSystems();
@@ -80,6 +95,7 @@ public class GameRoot : MonoBehaviour
         _updateSystems
             .Inject(_staticData)
             .Inject(_runTimeData)
+            .Inject(_loadedData)
             ;
     }
 

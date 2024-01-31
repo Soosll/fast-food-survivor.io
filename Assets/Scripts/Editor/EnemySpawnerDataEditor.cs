@@ -41,7 +41,8 @@ namespace Editor
 
                 _openedEnemies[i] = EditorGUILayout.BeginFoldoutHeaderGroup(_openedEnemies[i], $"{_spawnerData.EnemySpawnConfig[i].EnemyId}");
 
-                DrawRemoveEnemyButton(i);
+                if(DrawRemoveEnemyButton(i))
+                    continue;
 
                 GUILayout.EndHorizontal();
 
@@ -131,17 +132,21 @@ namespace Editor
             }
         }
 
-        private void DrawRemoveEnemyButton(int element)
+        private bool DrawRemoveEnemyButton(int element)
         {
             if (GUILayout.Button("Remove Enemy", GUILayout.Width(120)))
             {
                 if (EnemySpawnConfig.arraySize == 0)
-                    return;
+                    return false;
 
                 EnemySpawnConfig.DeleteArrayElementAtIndex(element);
 
                 _addedElementsCount--;
+
+                return true;
             }
+
+            return false;
         }
 
         private bool DrawRemoveParameterButton(int element, int parameter)
@@ -169,9 +174,7 @@ namespace Editor
             GUILayout.BeginHorizontal(GUI.skin.box);
             EditorGUIUtility.labelWidth = 70;
 
-            EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue = EditorGUILayout.TextField("Enemy Id:",
-                EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue,
-                GUILayout.Width(280), GUILayout.ExpandWidth(false));
+            EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue = EditorGUILayout.TextField("Enemy Id:", EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue, GUILayout.Width(280), GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
         }
     }

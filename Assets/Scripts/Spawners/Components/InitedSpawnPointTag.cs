@@ -1,6 +1,6 @@
 ﻿namespace Spawners.Components
 {
-    public struct DistributedSpawnPointTag
+    public struct InitedSpawnPointTag
     {
     }
 }

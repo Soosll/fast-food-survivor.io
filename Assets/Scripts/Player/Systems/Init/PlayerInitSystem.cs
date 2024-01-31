@@ -36,7 +36,7 @@ namespace Player.Systems.Init
                 playerEntity.Get<CameraFollowComponent>();
                 
                 playerEntity.Del<NotInitPlayerComponent>();
-                playerEntity.Get<InitPlayerComponent>();
+                playerEntity.Get<InitPlayerTag>();
             }
         }
     }

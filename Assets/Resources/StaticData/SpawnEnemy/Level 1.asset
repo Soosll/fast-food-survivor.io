@@ -10,6 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3055f11edd84aac996a3838a26a8270, type: 3}
-  m_Name: LevelName
+  m_Name: Level 1
   m_EditorClassIdentifier: 
-  EnemySpawnConfig: []
+  EnemySpawnConfig:
+  - EnemyId: hamburger
+    SpawnParameters:
+    - From: 0
+      To: 3
+      SpawnCount: 50
+      SpawnRate: 4
+  - EnemyId: frenchfries
+    SpawnParameters:
+    - From: 0
+      To: 3
+      SpawnCount: 35
+      SpawnRate: 4

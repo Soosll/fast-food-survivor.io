@@ -13,7 +13,7 @@ namespace Player.Systems
         private StaticData _staticData;
         private RunTimeData _runTimeData;
 
-        private EcsFilter<InitPlayerComponent> _playersFilter;
+        private EcsFilter<InitPlayerTag> _playersFilter;
 
         public void Run()
         {

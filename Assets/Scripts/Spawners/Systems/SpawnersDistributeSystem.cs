@@ -65,7 +65,7 @@ namespace Spawners.Systems
                 var entity = _createdSpawnersFilter.GetEntity(_distributedElements);
                 var entityTransform = entity.Get<TransformLink>();
                 
-                entity.Get<DistributedSpawnPointTag>();
+                entity.Get<InitedSpawnPointTag>();
                 _distributedElements++;
                 
                 entityTransform.Transform.position = angularPoint + new Vector3(0, offsetFromCameraBound, 0) - new Vector3(currentDistance, 0, 0);
@@ -90,7 +90,7 @@ namespace Spawners.Systems
                 var entity = _createdSpawnersFilter.GetEntity(_distributedElements);
                 var entityTransform = entity.Get<TransformLink>();
                 
-                entity.Get<DistributedSpawnPointTag>();
+                entity.Get<InitedSpawnPointTag>();
 
                 _distributedElements++;
                 

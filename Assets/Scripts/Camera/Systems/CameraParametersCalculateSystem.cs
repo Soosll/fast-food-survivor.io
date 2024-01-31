@@ -16,7 +16,7 @@ namespace Camera.Systems
             _camera = UnityEngine.Camera.main;
 
 
-            _runTimeData.CameraParameters.WorldScale = _camera.ScreenToWorldPoint(new Vector3(_camera.pixelWidth, _camera.pixelHeight, _camera.transform.position.z));
+            _runTimeData.CameraParameters.WorldScale = _camera.ScreenToWorldPoint(new Vector3(_camera.pixelWidth, _camera.pixelHeight, 0));
         }
 
         public void Run()

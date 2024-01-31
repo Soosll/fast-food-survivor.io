@@ -1,6 +1,6 @@
 ﻿namespace Player.Components.Main
 {
-    public struct InitPlayerComponent
+    public struct InitPlayerTag
     {
     }
 }

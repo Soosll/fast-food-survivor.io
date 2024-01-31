@@ -13,7 +13,7 @@ namespace Spawners.Systems
         private StaticData _staticData;
         private RunTimeData _runTimeData;
         
-        private EcsFilter<DistributedSpawnPointTag> _distributedSpawnersFilter;
+        private EcsFilter<InitedSpawnPointTag> _distributedSpawnersFilter;
 
         private UnityEngine.Camera _camera;
         
@@ -38,7 +38,7 @@ namespace Spawners.Systems
                 var spawnPointTransform = spawnPointEntity.Get<TransformLink>();
 
                 var offset = spawnPointEntity.Get<SpawnerOffsetFromCameraComponent>();
-                
+
                 spawnPointTransform.Transform.position = _cameraCenter - offset.Value;
             }
         }

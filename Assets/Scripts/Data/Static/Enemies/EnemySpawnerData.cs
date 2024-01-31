@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Data.Static.Enemies
@@ -16,6 +17,9 @@ namespace Data.Static.Enemies
         public string EnemyId;
         
         public List<EnemySpawnParameters> SpawnParameters;
+
+        public EnemySpawnParameters[] GetByMinute(int minute) => 
+            SpawnParameters.Where(s => s.From <= minute && s.To >= minute).ToArray();
     }
 
     [Serializable]

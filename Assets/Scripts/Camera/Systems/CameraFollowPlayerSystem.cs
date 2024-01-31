@@ -13,7 +13,7 @@ namespace Camera.Systems
         private EcsWorld _world; // TODO Потом можно вешать на каждую камеру MonoEntityTag и находить так камеры +-
         private StaticData _staticData;
 
-        private EcsFilter<InitPlayerComponent, CameraFollowComponent> _playerFilter;
+        private EcsFilter<InitPlayerTag, CameraFollowComponent> _playerFilter;
 
         public void Run()
         {

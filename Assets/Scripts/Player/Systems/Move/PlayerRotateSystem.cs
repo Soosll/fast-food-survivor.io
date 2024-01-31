@@ -12,7 +12,7 @@ namespace Player.Systems.Move
         private EcsWorld _world;
         private RunTimeData _runTimeData;
 
-        private EcsFilter<InitPlayerComponent, RotateEvent> _playersFilter;
+        private EcsFilter<InitPlayerTag, RotateEvent> _playersFilter;
 
         public void Run()
         {
