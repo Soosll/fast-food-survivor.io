@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Data.Static.Enemies
 {
-    [CreateAssetMenu(menuName = "EnemySpawner", fileName = "LevelName", order = 51)]
+    [CreateAssetMenu(menuName = "StaticData/EnemySpawner", fileName = "LevelName", order = 51)]
     public class EnemySpawnerData : ScriptableObject
     {
         public List<EnemySpawnConfig> EnemySpawnConfig;

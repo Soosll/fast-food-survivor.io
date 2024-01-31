@@ -7,6 +7,7 @@ using Leopotam.Ecs;
 using Mailbox;
 using Player.Components;
 using Player.Components.Spawn;
+using Spawners.Components;
 using Zun010.LeoEcsExtensions;
 
 namespace Main.Systems
@@ -56,8 +57,9 @@ namespace Main.Systems
         {
             _staticData.SceneDependencies.UIDependencies.StartGamePanel.transform.Diactivate();
             _staticData.SceneDependencies.UIDependencies.PlayerHUD.transform.Activate();
-            
+
             _world.NewEntityWith<PlayerSpawnRequest>();
+            _world.NewEntityWith<CreateSpawnersRequest>();
 
             _runTimeData.InGameData.GamePhase = GamePhase.InitWorld;
         }
@@ -65,7 +67,8 @@ namespace Main.Systems
         private void InitWorld()
         {
             _world.NewEntityWith<PlayerInitRequest>();
-
+            _world.NewEntityWith<SpawnersDistributeRequest>();
+            
             _runTimeData.InGameData.GamePhase = GamePhase.GameLoop;
         }
     }

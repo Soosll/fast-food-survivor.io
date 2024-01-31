@@ -8,6 +8,7 @@ using Player.Systems;
 using Player.Systems.Init;
 using Player.Systems.Move;
 using Player.Systems.Spawn;
+using Spawners.Systems;
 using UI.Systems;
 using UnityEngine;
 
@@ -33,12 +34,17 @@ public class GameRoot : MonoBehaviour
             .Add(new StartGameSystem())
             .Add(new StartGamePanelPresenterSystem())
             .Add(new JoyStickPresenterSystem())
+            .Add(new CameraParametersCalculateSystem())
             .Add(new PlayerInitSystem())
             .Add(new PlayerSpawnSystem())
             .Add(new PlayerJoystickDirectionSystem())
             .Add(new PlayerRotateSystem())
             .Add(new CameraFollowPlayerSystem())
             .Add(new PlayerStateMachineSystem())
+            
+            .Add(new SpawnersCreateSystem())
+            .Add(new SpawnersDistributeSystem())
+            .Add(new SpawnersMoveSystem())
             ;
 
         _fixedUpdateSystems

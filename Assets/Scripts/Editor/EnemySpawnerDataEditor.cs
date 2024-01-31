@@ -10,8 +10,6 @@ namespace Editor
     [CustomEditor(typeof(EnemySpawnerData))]
     public class EnemySpawnerDataEditor : UnityEditor.Editor
     {
-        [SerializeField] private Texture _binTexture;
-        
         private EnemySpawnerData _spawnerData;
         private SerializedProperty EnemySpawnConfig;
 

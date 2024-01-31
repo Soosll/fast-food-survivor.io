@@ -431,6 +431,8 @@ MonoBehaviour:
     <StartGamePanel>k__BackingField: {fileID: 1195681081}
     <PlayerHUD>k__BackingField: {fileID: 1741070041}
   <MainCamera>k__BackingField: {fileID: 217799196}
+  <SpawnersData>k__BackingField: {fileID: 11400000, guid: e07bb499011e3b643a912f0ba6d6f0d0, type: 2}
+  <SpawnersContainer>k__BackingField: {fileID: 753372556}
 --- !u!114 &526557053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,6 +844,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joyStickImage: {fileID: 1392271211}
   _moveRadius: 1.5
+--- !u!1 &753372555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 753372556}
+  m_Layer: 0
+  m_Name: EnemySpawners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &753372556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753372555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4824262, y: 2.8260968, z: -0.017549753}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &855549781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,9 +1844,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 855549784}
   - {fileID: 217799197}
   - {fileID: 1267475408}
   - {fileID: 1496330405}
   - {fileID: 1533255914}
   - {fileID: 526557051}
+  - {fileID: 855549784}
+  - {fileID: 753372556}
