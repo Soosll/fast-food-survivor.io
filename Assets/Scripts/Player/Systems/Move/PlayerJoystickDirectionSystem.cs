@@ -11,7 +11,7 @@ namespace Player.Systems.Move
         private EcsWorld _world;
         private RunTimeData _runTimeData;
         
-        private EcsFilter<PlayerTag> _playersFilter;
+        private EcsFilter<InitPlayerTag> _playersFilter;
 
         public void Run()
         {

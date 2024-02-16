@@ -3,8 +3,12 @@ using Data.RunTime;
 using Data.Static;
 using Leopotam.Ecs;
 using Player.Components;
+using Player.Components.Abilities.Main;
+using Player.Components.Experience;
 using Player.Components.Main;
 using Player.Components.Move;
+using UnityEngine;
+using Zun010.LeoEcsExtensions;
 
 namespace Player.Systems.Init
 {
@@ -28,12 +32,22 @@ namespace Player.Systems.Init
                 EcsEntity playerEntity = _preInitPlayersFilter.GetEntity(idx);
 
                 PlayerData playerData = _runTimeData.InGameData.PlayerData;
-                
-                playerEntity.Get<MoveSpeedStat>().Value = playerData.DefaultSpeed;
-                playerEntity.Get<DamageComponent>().Damage = playerData.DefaultDamage;
-                playerEntity.Get<KcalComponent>().Value = playerData.DefaultKcal;
-                
+
+                playerEntity.Get<PlayerLevelComponent>().Level = 0;
+                playerEntity.Get<MoveSpeedComponent>().Value = playerData.DefaultSpeed;
+                playerEntity.Get<KcalComponent>().CurrentValue = playerData.DefaultKcal;
+                playerEntity.Get<KcalComponent>().MaxValue = playerData.DefaultKcal;
+                playerEntity.Get<TakeExperienceRangeComponent>().Range = playerData.DefaultTakeExperienceRange;
+                playerEntity.Get<LuckComponent>().Value = playerData.DefaultLuck;
+                playerEntity.Get<PlayerExperienceComponent>();
+
                 playerEntity.Get<CameraFollowComponent>();
+
+                var playerBaseAbilityId = playerData.PlayerBaseAbility.ToString();
+
+                var initAbilityRequestEntity = _world.NewEntityWith<InitAbilityRequest>();
+
+                initAbilityRequestEntity.Get<InitAbilityRequest>().Id = playerBaseAbilityId;
                 
                 playerEntity.Del<NotInitPlayerComponent>();
                 playerEntity.Get<InitPlayerTag>();

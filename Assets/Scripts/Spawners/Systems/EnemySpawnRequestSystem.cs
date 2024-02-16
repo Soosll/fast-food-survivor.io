@@ -4,9 +4,11 @@ using Data.RunTime;
 using Data.Static;
 using Data.Static.Enemies;
 using General.Components;
+using General.Components.Events;
 using Leopotam.Ecs;
 using Spawners.Components;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zun010.LeoEcsExtensions;
 
 namespace Spawners.Systems
@@ -17,6 +19,7 @@ namespace Spawners.Systems
         
         private StaticData _staticData;
         private RunTimeData _runTimeData;
+        private LoadedData _loadedData;
 
         private EcsFilter<SecondsUpEvent> _secondsUpFilter;
 
@@ -24,7 +27,7 @@ namespace Spawners.Systems
         
         public void Init()
         {
-            _spawnerData = Resources.Load<EnemySpawnerData>("StaticData/SpawnEnemy/Level 1"); // TODO сделать лоад систему под это
+            _spawnerData = _loadedData.EnemySpawnersLibrary.ForSpawner(SceneManager.GetActiveScene().name);
         }
 
         public void Run()
@@ -49,18 +52,29 @@ namespace Spawners.Systems
                 {
                     var currentParameter = spawnParameters[j];
 
+                    if (currentMinute == 0 && currentSecond == 1)
+                    {
+                        SendSpawnRequest(currentParameter, currentSpawnConfig);
+                        continue;
+                    }
+                    
                     if(currentSecond == 0)
                         continue;
                     
                     if (currentSecond % currentParameter.SpawnRate == 0)
                     {
-                        var entityRequest = _world.NewEntityWith<EnemySpawnRequest>();
-
-                        entityRequest.Get<EnemySpawnRequest>().SpawnCount = currentParameter.SpawnCount;
-                        entityRequest.Get<EnemySpawnRequest>().Id = currentSpawnConfig.EnemyId; 
+                        SendSpawnRequest(currentParameter, currentSpawnConfig);
                     }
                 }
             }
+        }
+
+        private void SendSpawnRequest(EnemySpawnParameters currentParameter, EnemySpawnConfig currentSpawnConfig)
+        {
+            var entityRequest = _world.NewEntityWith<EnemySpawnRequest>();
+
+            entityRequest.Get<EnemySpawnRequest>().SpawnCount = currentParameter.SpawnCount;
+            entityRequest.Get<EnemySpawnRequest>().Id = currentSpawnConfig.EnemyId;
         }
     }
 }

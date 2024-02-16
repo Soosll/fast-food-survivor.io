@@ -1,5 +1,6 @@
 ﻿using Enemy.Components;
 using General.Components;
+using General.Components.Parameters;
 using Leopotam.Ecs;
 using MonoLinks.Links;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Enemy.Systems
 
                 var enemyRigidbody = enemyEntity.Get<Rigidbody2DLink>().Rigidbody2D;
                 var enemyDirection = enemyEntity.Get<MoveDirectionComponent>().Direction;
-                var enemySpeed = enemyEntity.Get<MoveComponent>().Speed;
+                var enemySpeed = enemyEntity.Get<MoveComponent>().Value;
 
                 enemyRigidbody.velocity = enemyDirection.normalized * enemySpeed;
             }

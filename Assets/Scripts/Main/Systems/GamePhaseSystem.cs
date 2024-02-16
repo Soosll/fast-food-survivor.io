@@ -6,8 +6,11 @@ using Extensions;
 using Leopotam.Ecs;
 using Mailbox;
 using Player.Components;
+using Player.Components.Abilities.Main;
+using Player.Components.Experience;
 using Player.Components.Spawn;
 using Spawners.Components;
+using UnityEngine;
 using Zun010.LeoEcsExtensions;
 
 namespace Main.Systems
@@ -45,6 +48,19 @@ namespace Main.Systems
                 case GamePhase.GameLoop:
                     break;
                 
+                case GamePhase.SpellChoose:
+
+                    Time.timeScale = 0;
+                    _staticData.SceneDependencies.UIDependencies.AbilitiesPopupHolder.transform.Activate();
+
+                    break;
+                
+                case GamePhase.AfterSpellChoose:
+                    Time.timeScale = 1;
+                    _staticData.SceneDependencies.UIDependencies.AbilitiesPopupHolder.transform.Diactivate();
+                    _runTimeData.InGameData.GamePhase = GamePhase.GameLoop;
+                    break;
+                
                 case GamePhase.End:
                     break;
                 
@@ -68,7 +84,7 @@ namespace Main.Systems
         {
             _world.NewEntityWith<PlayerInitRequest>();
             _world.NewEntityWith<SpawnersDistributeRequest>();
-            
+
             _runTimeData.InGameData.GamePhase = GamePhase.GameLoop;
         }
     }

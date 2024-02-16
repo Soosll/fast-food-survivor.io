@@ -7,6 +7,7 @@
         InitWorld,
         GameLoop,
         SpellChoose,
+        AfterSpellChoose,
         Pause,
         End,
     }

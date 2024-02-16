@@ -11,10 +11,13 @@ namespace Data.Static.Enemies
         [field: SerializeField] public float DefaultHealth { get; private set; }
         [field: SerializeField] public float DefaultSpeed { get; private set; }
         [field: SerializeField] public float DefaultDamage { get; private set; }
+        [field: SerializeField] public float DefaultAttackRange { get; private set; }
+        [field: SerializeField] public float DefaultAttackCooldown { get; private set; }
         
         [field: Range(0, 100)]
         [field: SerializeField] public int DefaultExperience { get; private set; }
 
+        [field: SerializeField] public MonoEntity ExperiencePrefab { get; private set; }
         [field: SerializeField] public MonoEntity MonoPrefab { get; private set; }
     }
 }

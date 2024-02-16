@@ -25,6 +25,8 @@ namespace Editor
 
             EnemySpawnConfig = serializedObject.FindProperty("EnemySpawnConfig");
 
+            _addedElementsCount = EnemySpawnConfig.arraySize;
+            
             for (int i = 0; i < EnemySpawnConfig.arraySize; i++)
             {
                 _openedEnemies.Add(false);
@@ -121,9 +123,9 @@ namespace Editor
         {
             if (GUILayout.Button("Add Enemy", GUILayout.Width(100), GUILayout.ExpandWidth(false)))
             {
-                EnemySpawnConfig.InsertArrayElementAtIndex(_addedElementsCount);
+                EnemySpawnConfig.InsertArrayElementAtIndex(EnemySpawnConfig.arraySize);
 
-                EnemySpawnConfig.GetArrayElementAtIndex(_addedElementsCount).FindPropertyRelative("SpawnParameters").ClearArray();
+                EnemySpawnConfig.GetArrayElementAtIndex(EnemySpawnConfig.arraySize - 1).FindPropertyRelative("SpawnParameters").ClearArray();
 
                 bool isOpen = false;
                 _openedEnemies.Add(isOpen);

@@ -15,11 +15,15 @@ MonoBehaviour:
   <PlayersData>k__BackingField:
   - <Id>k__BackingField: Jimmy
     <DefaultSpeed>k__BackingField: 5
-    <DefaultDamage>k__BackingField: 5
     <DefaultKcal>k__BackingField: 100
+    <DefaultTakeExperienceRange>k__BackingField: 5
+    <DefaultLuck>k__BackingField: 100
+    <PlayerBaseAbility>k__BackingField: 0
     <Prefab>k__BackingField: {fileID: 4856468319913869539, guid: 2e65e28dc53ba0f448bdef22c59086d8, type: 3}
   - <Id>k__BackingField: 
     <DefaultSpeed>k__BackingField: 0
-    <DefaultDamage>k__BackingField: 0
     <DefaultKcal>k__BackingField: 0
+    <DefaultTakeExperienceRange>k__BackingField: 0
+    <DefaultLuck>k__BackingField: 0
+    <PlayerBaseAbility>k__BackingField: 0
     <Prefab>k__BackingField: {fileID: 0}

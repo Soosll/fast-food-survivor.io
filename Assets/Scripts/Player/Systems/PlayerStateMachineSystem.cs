@@ -23,10 +23,6 @@ namespace Player.Systems
 
                 var playerDirection = playerEntity.Get<PlayerDirectionComponent>().Direction;
 
-                if(playerEntity.TryGet(out RotateEvent rotateEvent))
-                    playerEntity.Del<RotateEvent>();
-                
-                playerEntity.Get<RotateEvent>().Flip = playerDirection.x > 0;
             }
         }
     }

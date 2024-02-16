@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Data;
 using Data.Loaded;
 using Data.Static;
 using Data.Static.Enemies;
@@ -15,7 +16,7 @@ namespace Load.Systems
         public void Init()
         {
             _loadedData.EnemiesLibrary.AllEnemies = Resources
-                .LoadAll<EnemyData>(AssetPath.EnemiesData)
+                .LoadAll<EnemyData>(DataPath.EnemiesDataPath)
                 .ToDictionary(x => x.Id, x => x);
         }
     }

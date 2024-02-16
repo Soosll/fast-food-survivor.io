@@ -2,6 +2,7 @@
 {
     public struct KcalComponent
     {
-        public float Value;
+        public float CurrentValue;
+        public float MaxValue;
     }
 }

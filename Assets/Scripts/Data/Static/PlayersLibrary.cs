@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Data.Enums;
 using UnityEngine;
 using Zun010.MonoLinks;
 
@@ -19,8 +20,10 @@ namespace Data.Static
     {
         [field: SerializeField] public string Id { get; private set; }
         [field: SerializeField] public float DefaultSpeed { get; private set; }
-        [field: SerializeField] public float DefaultDamage { get; private set; }
         [field: SerializeField] public float DefaultKcal { get; private set; }
+        [field: SerializeField] public float DefaultTakeExperienceRange { get; private set; }
+        [field: SerializeField] public float DefaultLuck { get; private set; }
+        [field: SerializeField] public AbilitiesId PlayerBaseAbility { get; private set; }
         [field: SerializeField] public MonoEntity Prefab { get; private set; }
     }
 }

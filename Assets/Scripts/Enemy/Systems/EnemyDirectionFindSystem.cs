@@ -1,5 +1,6 @@
 ﻿using Enemy.Components;
 using General.Components;
+using General.Components.Parameters;
 using Leopotam.Ecs;
 using Player.Components.Main;
 using Zun010.MonoLinks;
