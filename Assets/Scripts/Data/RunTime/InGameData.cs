@@ -13,6 +13,9 @@ namespace Data.RunTime
 
         public string ChosenPlayerId = "Jimmy";
 
+        public int CurrentGameSecond;
+        public int CurrentGameMinute; // на данный момент учитывается время при старте игры
+        
         public PlayerData PlayerData;
 
         private GamePhase _gamePhase;

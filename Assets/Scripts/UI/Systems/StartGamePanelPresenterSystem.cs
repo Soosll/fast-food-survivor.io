@@ -35,8 +35,6 @@ namespace UI.Systems
 
             _startGameButtonListener.MarkAsHandled();
             
-            Debug.Log("Создаю новую энтити");
-            
             _world.NewEntityWith<StartGameRequest>();
         }
     }

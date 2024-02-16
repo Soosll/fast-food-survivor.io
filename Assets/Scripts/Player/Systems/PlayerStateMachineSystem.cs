@@ -13,7 +13,7 @@ namespace Player.Systems
         private StaticData _staticData;
         private RunTimeData _runTimeData;
 
-        private EcsFilter<InitPlayerComponent> _playersFilter;
+        private EcsFilter<InitPlayerTag> _playersFilter;
 
         public void Run()
         {
@@ -23,10 +23,6 @@ namespace Player.Systems
 
                 var playerDirection = playerEntity.Get<PlayerDirectionComponent>().Direction;
 
-                if(playerEntity.TryGet(out RotateEvent rotateEvent))
-                    playerEntity.Del<RotateEvent>();
-                
-                playerEntity.Get<RotateEvent>().Flip = playerDirection.x > 0;
             }
         }
     }

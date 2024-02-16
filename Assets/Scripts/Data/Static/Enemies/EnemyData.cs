@@ -3,18 +3,21 @@ using Zun010.MonoLinks;
 
 namespace Data.Static.Enemies
 {
-    [CreateAssetMenu(menuName = "StaticData/EnemyData", fileName = "EnemyData", order = 51)]
+    [CreateAssetMenu(menuName = "StaticData/Enemy", fileName = "EnemyId", order = 51)]
     public class EnemyData : ScriptableObject
     {
         [field: SerializeField] public string Id { get; private set; }
 
-        [field: SerializeField] public float Health { get; private set; }
-        [field: SerializeField] public float Speed { get; private set; }
-        [field: SerializeField] public float Damage { get; private set; }
+        [field: SerializeField] public float DefaultHealth { get; private set; }
+        [field: SerializeField] public float DefaultSpeed { get; private set; }
+        [field: SerializeField] public float DefaultDamage { get; private set; }
+        [field: SerializeField] public float DefaultAttackRange { get; private set; }
+        [field: SerializeField] public float DefaultAttackCooldown { get; private set; }
         
         [field: Range(0, 100)]
-        [field: SerializeField] public int Experience { get; private set; }
+        [field: SerializeField] public int DefaultExperience { get; private set; }
 
+        [field: SerializeField] public MonoEntity ExperiencePrefab { get; private set; }
         [field: SerializeField] public MonoEntity MonoPrefab { get; private set; }
     }
 }

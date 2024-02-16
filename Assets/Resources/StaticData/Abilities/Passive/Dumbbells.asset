@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbad7ed78a84bf49bded13e985be5f9, type: 3}
+  m_Name: Dumbbells
+  m_EditorClassIdentifier: 
+  Id: Dumbbells
+  AbilitySprite: {fileID: 21300000, guid: a0e43cc8561e1a349a01c42abfb6255a, type: 3}
+  Rarity: 60
+  MaxLevel: 5
+  PassiveAbilityParameters:
+  - Description: Increase all damage by 10%
+    InPercent: 1
+    Value: 10
+  - Description: Increase all damage by 15%
+    InPercent: 1
+    Value: 15
+  - Description: Increase all damage by 20%
+    InPercent: 1
+    Value: 20
+  - Description: Increase all damage by 25%
+    InPercent: 1
+    Value: 25
+  - Description: Increase all damage by 30%
+    InPercent: 1
+    Value: 30

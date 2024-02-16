@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Data.Static.Enemies
 {
-    [CreateAssetMenu(menuName = "EnemySpawner", fileName = "LevelName", order = 51)]
+    [CreateAssetMenu(menuName = "StaticData/EnemySpawner", fileName = "LevelName", order = 51)]
     public class EnemySpawnerData : ScriptableObject
     {
         public List<EnemySpawnConfig> EnemySpawnConfig;
@@ -16,6 +17,9 @@ namespace Data.Static.Enemies
         public string EnemyId;
         
         public List<EnemySpawnParameters> SpawnParameters;
+
+        public EnemySpawnParameters[] GetByMinute(int minute) => 
+            SpawnParameters.Where(s => s.From <= minute && s.To >= minute).ToArray();
     }
 
     [Serializable]

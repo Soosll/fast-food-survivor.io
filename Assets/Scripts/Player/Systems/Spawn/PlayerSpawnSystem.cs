@@ -32,7 +32,7 @@ namespace Player.Systems.Spawn
                 string currentPlayerId = _runTimeData.InGameData.ChosenPlayerId;
                 PlayerData playerData = _staticData.PlayersLibrary.GetDataById(currentPlayerId);
 
-                _runTimeData.InGameData.PlayerData = playerData; // TODO Это должно происходить в загрузке данных +-
+                _runTimeData.InGameData.PlayerData = playerData;
                 
                 EcsEntity spawnPointEntity = _spawnPointsFilter.GetEntity(idx);
                 Transform spawnPoint = spawnPointEntity.Get<TransformLink>().Transform;

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a55958701aa445a8e7f8a82b967fc0b, type: 3}
+  m_Name: Spawner
+  m_EditorClassIdentifier: 
+  TopCount: 6
+  BotCount: 6
+  RightCount: 5
+  LeftCount: 5
+  OffsetFromCameraBounds: 3
+  SpawnerMonoPrefab: {fileID: 671222643126853034, guid: 63f726c15ff40a647ad2b83716a349d5, type: 3}

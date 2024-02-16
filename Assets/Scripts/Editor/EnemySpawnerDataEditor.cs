@@ -10,8 +10,6 @@ namespace Editor
     [CustomEditor(typeof(EnemySpawnerData))]
     public class EnemySpawnerDataEditor : UnityEditor.Editor
     {
-        [SerializeField] private Texture _binTexture;
-        
         private EnemySpawnerData _spawnerData;
         private SerializedProperty EnemySpawnConfig;
 
@@ -27,6 +25,8 @@ namespace Editor
 
             EnemySpawnConfig = serializedObject.FindProperty("EnemySpawnConfig");
 
+            _addedElementsCount = EnemySpawnConfig.arraySize;
+            
             for (int i = 0; i < EnemySpawnConfig.arraySize; i++)
             {
                 _openedEnemies.Add(false);
@@ -43,7 +43,8 @@ namespace Editor
 
                 _openedEnemies[i] = EditorGUILayout.BeginFoldoutHeaderGroup(_openedEnemies[i], $"{_spawnerData.EnemySpawnConfig[i].EnemyId}");
 
-                DrawRemoveEnemyButton(i);
+                if(DrawRemoveEnemyButton(i))
+                    continue;
 
                 GUILayout.EndHorizontal();
 
@@ -122,9 +123,9 @@ namespace Editor
         {
             if (GUILayout.Button("Add Enemy", GUILayout.Width(100), GUILayout.ExpandWidth(false)))
             {
-                EnemySpawnConfig.InsertArrayElementAtIndex(_addedElementsCount);
+                EnemySpawnConfig.InsertArrayElementAtIndex(EnemySpawnConfig.arraySize);
 
-                EnemySpawnConfig.GetArrayElementAtIndex(_addedElementsCount).FindPropertyRelative("SpawnParameters").ClearArray();
+                EnemySpawnConfig.GetArrayElementAtIndex(EnemySpawnConfig.arraySize - 1).FindPropertyRelative("SpawnParameters").ClearArray();
 
                 bool isOpen = false;
                 _openedEnemies.Add(isOpen);
@@ -133,17 +134,21 @@ namespace Editor
             }
         }
 
-        private void DrawRemoveEnemyButton(int element)
+        private bool DrawRemoveEnemyButton(int element)
         {
             if (GUILayout.Button("Remove Enemy", GUILayout.Width(120)))
             {
                 if (EnemySpawnConfig.arraySize == 0)
-                    return;
+                    return false;
 
                 EnemySpawnConfig.DeleteArrayElementAtIndex(element);
 
                 _addedElementsCount--;
+
+                return true;
             }
+
+            return false;
         }
 
         private bool DrawRemoveParameterButton(int element, int parameter)
@@ -171,9 +176,7 @@ namespace Editor
             GUILayout.BeginHorizontal(GUI.skin.box);
             EditorGUIUtility.labelWidth = 70;
 
-            EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue = EditorGUILayout.TextField("Enemy Id:",
-                EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue,
-                GUILayout.Width(280), GUILayout.ExpandWidth(false));
+            EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue = EditorGUILayout.TextField("Enemy Id:", EnemySpawnConfig.GetArrayElementAtIndex(index).FindPropertyRelative("EnemyId").stringValue, GUILayout.Width(280), GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
         }
     }
