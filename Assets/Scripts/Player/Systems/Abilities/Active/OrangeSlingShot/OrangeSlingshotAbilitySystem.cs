@@ -20,7 +20,7 @@ namespace Player.Systems.Abilities.Active.OrangeSlingShot
         private EcsWorld _world;
         private LoadedData _loadedData;
 
-        private EcsFilter<InitPlayerTag> _playersFilter;
+        private EcsFilter<InitPlayerTag, FoundTargetTag> _playersFilter;
         private EcsFilter<InitEnemyTag> _enemiesFilter;
         private EcsFilter<InitAbilityTag>.Exclude<CooldownComponent> _playerAbilitiesFilter;
 
@@ -34,9 +34,6 @@ namespace Player.Systems.Abilities.Active.OrangeSlingShot
         public void Run()
         {
             if(_playersFilter.GetEntitiesCount() == 0)
-                return;
-            
-            if(_enemiesFilter.GetEntitiesCount() == 0)
                 return;
             
             foreach (int idx in _playerAbilitiesFilter)

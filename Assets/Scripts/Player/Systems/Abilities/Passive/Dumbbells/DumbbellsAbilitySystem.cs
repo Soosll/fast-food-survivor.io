@@ -1,7 +1,9 @@
-﻿using Data.Loaded;
+﻿using Data.Enums;
+using Data.Loaded;
 using Leopotam.Ecs;
 using Player.Components.Abilities.Main;
 using Player.Components.Stats;
+using UnityEngine;
 
 namespace Player.Systems.Abilities.Passive.Dumbbells
 {
@@ -18,29 +20,30 @@ namespace Player.Systems.Abilities.Passive.Dumbbells
         
         public void Init()
         {
-            _abilityId = "Dumbbells";
+            _abilityId = AbilitiesId.Dumbbells.ToString();
         }
 
         public void Run()
         {
+            if(_initAbilityRequestsFilter.GetEntitiesCount() == 0)
+                return;
+            
             foreach (int idx in _initAbilityRequestsFilter)
             {
                 var abilityEntity = _initAbilityRequestsFilter.GetEntity(idx);
 
-                if(abilityEntity.Get<PassiveAbilityComponent>().Id != _abilityId)
+                ref var abilityComponent = ref abilityEntity.Get<PassiveAbilityComponent>();
+                
+                if(abilityComponent.Id != _abilityId)
                     continue;
                 
                 abilityEntity.Del<UpgradePassiveStatRequest>();
-
-                var abilityData = _loadedData.AbilitiesLibrary.ForPassiveAbility(_abilityId);
-
-                var abilityParameters = abilityData.GetByLevel(0); 
                 
                 var playerStatsEntity = _playerStatsFilter.GetEntity(0);
 
                 ref var projectileDamageStat = ref playerStatsEntity.Get<DamageStat>();
 
-                projectileDamageStat.ModifiedValue = projectileDamageStat.BaseValue + projectileDamageStat.BaseValue / 100 * abilityParameters.Value;
+                projectileDamageStat.ModifiedValue = projectileDamageStat.BaseValue + projectileDamageStat.BaseValue / 100 * abilityComponent.Value;
             }
         }
     }

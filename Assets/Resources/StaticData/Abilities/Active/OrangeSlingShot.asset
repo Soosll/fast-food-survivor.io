@@ -24,26 +24,26 @@ MonoBehaviour:
     Cooldown: 1
     CritMultiplyer: 1.1
     CritChance: 25
-    Damage: 3
+    Damage: 5
     Duration: 4
     HitboxDelay: 0.3
     Knockback: 2
     Pierce: 1
     Speed: 12
     ForEditorEnum: -1
-  - Description: Increase amount
-    Amount: 2
+  - Description: Increase damage and pierce
+    Amount: 1
     Area: 1
     Cooldown: 1
     CritMultiplyer: 1.1
     CritChance: 25
-    Damage: 3
+    Damage: 7
     Duration: 4
     HitboxDelay: 0.3
     Knockback: 2
-    Pierce: 1
+    Pierce: 2
     Speed: 12
-    ForEditorEnum: 2
+    ForEditorEnum: 544
   - Description: Increase speed
     Amount: 2
     Area: 1

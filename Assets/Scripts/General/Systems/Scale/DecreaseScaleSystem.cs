@@ -22,13 +22,9 @@ namespace General.Systems.Scale
 
                 ref var request = ref entity.Get<DecreaseScaleRequest>();
 
-                if (request.Delay == 0)
-                    entityTransform.DOScale(request.TargetScale, request.Time).SetEase(Ease.Linear)
-                        .OnComplete(() => SetDecreasedScaleTag(entity));
+                entityTransform.DOScale(request.TargetScale, request.Time).SetEase(Ease.Linear)
+                    .OnComplete(() => SetDecreasedScaleTag(entity));
 
-                else
-                    entityTransform.DOScale(request.TargetScale, request.Time).SetDelay(request.Delay).SetEase(Ease.Linear)
-                        .OnComplete(() => SetDecreasedScaleTag(entity));
 
                 entity.Del<DecreaseScaleRequest>();
             }

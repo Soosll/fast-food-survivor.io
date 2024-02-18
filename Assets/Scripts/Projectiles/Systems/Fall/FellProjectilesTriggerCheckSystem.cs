@@ -25,22 +25,23 @@ namespace Projectiles.Systems.Fall
             
             foreach (int idx in _fellProjectilesFilter)
             {
+                Collider2D[] collidersContainter = new Collider2D[15];
                 var projectileEntity = _fellProjectilesFilter.GetEntity(idx);
 
                 ref var projectileTransform = ref projectileEntity.Get<TransformLink>().Transform;
                 ref var projectileBoxCollider = ref projectileEntity.Get<BoxCollider2DLink>().BoxCollider2D;
 
-                var hitColliders = Physics2D.OverlapBoxAll(projectileBoxCollider.transform.localPosition, projectileBoxCollider.size, 90);
+                var hitColliders = Physics2D.OverlapBoxNonAlloc(projectileBoxCollider.transform.localPosition, projectileBoxCollider.size, 90, collidersContainter);
 
-                if (hitColliders.Length == 0)
+                if (collidersContainter.Length == 0)
                     continue;
 
                 ref var projectileDamage = ref projectileEntity.Get<DamageComponent>().Value;
                 ref var projectileKnockback = ref projectileEntity.Get<KnockbackComponent>().Value;
                 
-                for (var i = 0; i < hitColliders.Length; i++)
+                for (var i = 0; i < hitColliders; i++)
                 {
-                    if (hitColliders[i].TryGetComponent(out MonoEntity monoEntity))
+                    if (collidersContainter[i].TryGetComponent(out MonoEntity monoEntity))
                     {
                         if (!monoEntity.Entity.Has<InitEnemyTag>())
                             continue;

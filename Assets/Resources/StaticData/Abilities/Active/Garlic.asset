@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: Garlic
   Rarity: 20
   AbilitySprite: {fileID: 21300000, guid: 30b6e8c6b2d57be4185556714a840575, type: 3}
-  MaxLevel: 4
+  MaxLevel: 5
   ProjectilePrefab: {fileID: 2891339492855406605, guid: 35ee963928bf7e64599231450065630d, type: 3}
   ActiveAbilityParameters:
   - Description: Moving garlics around player.
@@ -29,7 +29,7 @@ MonoBehaviour:
     HitboxDelay: 1
     Knockback: 2.5
     Pierce: 1
-    Speed: 5
+    Speed: 6
     ForEditorEnum: -1
   - Description: Increase amount and area
     Amount: 2
@@ -55,11 +55,11 @@ MonoBehaviour:
     HitboxDelay: 1
     Knockback: 2.5
     Pierce: 1
-    Speed: 15
+    Speed: 9
     ForEditorEnum: 1026
-  - Description: Increase amount
+  - Description: Increase amount and area
     Amount: 4
-    Area: 4
+    Area: 5
     Cooldown: 5
     CritMultiplyer: 1.2
     CritChance: 30
@@ -69,4 +69,17 @@ MonoBehaviour:
     Knockback: 2.5
     Pierce: 1
     Speed: 18
-    ForEditorEnum: -1
+    ForEditorEnum: 3
+  - Description: Increase amount, speed and area
+    Amount: 5
+    Area: 7
+    Cooldown: 5
+    CritMultiplyer: 1.2
+    CritChance: 30
+    Damage: 5
+    Duration: 7
+    HitboxDelay: 1
+    Knockback: 2.5
+    Pierce: 1
+    Speed: 12
+    ForEditorEnum: 1027

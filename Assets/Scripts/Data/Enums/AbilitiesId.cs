@@ -4,6 +4,10 @@
     {
         OrangeSlingShot,
         Garlic,
-        Weight
+        Weight,
+        
+        Dumbbells,
+        VitaminB,
+        FastSneakers
     }
 }

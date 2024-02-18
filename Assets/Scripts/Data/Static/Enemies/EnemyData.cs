@@ -16,6 +16,9 @@ namespace Data.Static.Enemies
         
         [field: Range(0, 100)]
         [field: SerializeField] public int DefaultExperience { get; private set; }
+        
+        [field: Range(0, 100)]
+        [field: SerializeField] public int DefaultExperienceDropChance { get; private set; }
 
         [field: SerializeField] public MonoEntity ExperiencePrefab { get; private set; }
         [field: SerializeField] public MonoEntity MonoPrefab { get; private set; }

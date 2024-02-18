@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ExperienceData
   m_EditorClassIdentifier: 
   <MoveDistanceFrom>k__BackingField: 2
-  <MoveSpeedFrom>k__BackingField: 3
-  <MoveSpeedTo>k__BackingField: 9
+  <MoveSpeedFrom>k__BackingField: 12
+  <MoveSpeedTo>k__BackingField: 15

@@ -2,7 +2,7 @@
 
 namespace Experience.Components
 {
-    public class DropExperiencePositionComponent
+    public struct DropExperiencePositionComponent
     {
         public Vector3 Position;
     }

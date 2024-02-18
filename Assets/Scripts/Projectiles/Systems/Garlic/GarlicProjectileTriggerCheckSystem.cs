@@ -28,20 +28,22 @@ namespace Projectiles.Systems.Garlic
             
             foreach (int idx in _projectilesFilter)
             {
+                Collider2D[] hitColliders = new Collider2D[8];
+                
                 var projectileEntity = _projectilesFilter.GetEntity(idx);
 
                 ref var projectileEntityTransform = ref projectileEntity.Get<TransformLink>().Transform;
 
                 ref var projectileCollider = ref projectileEntity.Get<BoxCollider2DLink>().BoxCollider2D;
                 
-                var hittedColliders = Physics2D.OverlapBoxAll(projectileEntityTransform.position, new Vector2(projectileCollider.size.x, projectileCollider.size.y), 90);
+                var hittedColliders = Physics2D.OverlapBoxNonAlloc(projectileEntityTransform.position, new Vector2(projectileCollider.size.x, projectileCollider.size.y), 90, hitColliders);
                 
-                if (hittedColliders.Length == 0)
+                if (hitColliders.Length == 0)
                     continue;
                 
-                for (var i = 0; i < hittedColliders.Length; i++)
+                for (var i = 0; i < hittedColliders; i++)
                 {
-                    if (hittedColliders[i].gameObject.TryGetComponent(out MonoEntity monoEntity))
+                    if (hitColliders[i].TryGetComponent(out MonoEntity monoEntity))
                     {
                         if (!monoEntity.Entity.Has<InitEnemyTag>())
                             continue;

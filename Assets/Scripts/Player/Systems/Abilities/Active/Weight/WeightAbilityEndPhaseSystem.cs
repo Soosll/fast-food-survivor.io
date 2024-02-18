@@ -45,9 +45,9 @@ namespace Player.Systems.Abilities.Active.Weight
                 
                 ref var decreaseScaleRequest = ref projectileEntity.Get<DecreaseScaleRequest>();
                 
-                decreaseScaleRequest.TargetScale = new Vector3().MinimalObjectScale();
+                decreaseScaleRequest.TargetScale = Vector3.zero;
                 decreaseScaleRequest.Time = 0.5f;
-                decreaseScaleRequest.Delay = 0.5f;
+                //decreaseScaleRequest.Delay = 0.5f;
             }
         }
     }

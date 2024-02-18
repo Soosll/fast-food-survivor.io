@@ -48,16 +48,15 @@ namespace UI.Systems
                     if (playerChosenAbilities.PlayerActiveAbilities.ContainsKey(randomAbilityId))
                     {
                         var abilityLevel = playerChosenAbilities.GetActiveAbilityLevelById(randomAbilityId);
-                        abilityLevel++;
-                        var presenter = GetActiveAbilityPresenter(activeAbilityData, abilityLevel);
-                        popupsHolder.AbilitiesPopups[idx].Show(presenter);
+                        var presenter = GetActiveAbilityPresenter(activeAbilityData, abilityLevel + 1);
+                        popupsHolder.Show(presenter);
                         continue;
                     }
 
                     else
                     {
                         var presenter = GetActiveAbilityPresenter(activeAbilityData, 0);
-                        popupsHolder.AbilitiesPopups[idx].Show(presenter);
+                        popupsHolder.Show(presenter);
                         continue;
                     }
                 }
@@ -69,16 +68,14 @@ namespace UI.Systems
                     if (playerChosenAbilities.PlayerPassiveAbilities.ContainsKey(randomAbilityId))
                     {
                         var abilityLevel = playerChosenAbilities.GetPassiveAbilityLevelById(randomAbilityId);
-                        var presenter = GetPassiveAbilityPresenter(passiveAbilityData, abilityLevel);
-                        popupsHolder.AbilitiesPopups[idx].Show(presenter);
-                        continue;
+                        var presenter = GetPassiveAbilityPresenter(passiveAbilityData, abilityLevel + 1);
+                        popupsHolder.Show(presenter);
                     }
 
                     else
                     {
                         var presenter = GetPassiveAbilityPresenter(passiveAbilityData, 0);
-                        popupsHolder.AbilitiesPopups[idx].Show(presenter);
-                        continue;
+                        popupsHolder.Show(presenter);
                     }
                 }
             }

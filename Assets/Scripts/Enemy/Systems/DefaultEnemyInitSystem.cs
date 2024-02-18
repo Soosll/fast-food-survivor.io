@@ -10,7 +10,7 @@ using KcalComponent = Player.Components.KcalComponent;
 
 namespace Enemy.Systems
 {
-    public class EnemyDefaultInitSystem : IEcsRunSystem
+    public class DefaultEnemyInitSystem : IEcsRunSystem
     {
         private EcsWorld _world;
         private LoadedData _loadedData;
@@ -37,6 +37,8 @@ namespace Enemy.Systems
 
                 dropExperienceComponent.Value = enemyData.DefaultExperience;
                 dropExperienceComponent.Prefab = enemyData.ExperiencePrefab;
+                
+                entity.Get<ExperienceDropChanceComponent>().Value = enemyData.DefaultExperienceDropChance;
 
                 entity.Del<NotInitEnemyTag>();
                 entity.Get<InitEnemyTag>();

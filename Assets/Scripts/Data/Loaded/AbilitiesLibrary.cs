@@ -7,33 +7,34 @@ namespace Data.Loaded
 {
     public class AbilitiesLibrary
     {
-        private Dictionary<string, ActiveAbilityData> ActiveAbilities = new();
-        private Dictionary<string, PassiveAbilityData> PassiveAbilities = new();
+        private Dictionary<string, ActiveAbilityData> _activeAbilities = new();
+        private Dictionary<string, PassiveAbilityData> _passiveAbilities = new();
 
         public void SetActiveAbilitiesData(Dictionary<string, ActiveAbilityData> activeAbilityDatas) =>
-            ActiveAbilities = activeAbilityDatas;
+            _activeAbilities = activeAbilityDatas;
 
         public void SetPassiveAbilitiesData(Dictionary<string, PassiveAbilityData> passiveAbilityDatas) =>
-            PassiveAbilities = passiveAbilityDatas;
+            _passiveAbilities = passiveAbilityDatas;
 
-        public void RemoveActiveElement(string key)
-        {
-            ActiveAbilities.Remove(key);
-        }
-        
+        public void RemoveActiveElement(string key) => 
+            _activeAbilities.Remove(key);
+
+        public void RemovePassiveElement(string id) => 
+            _passiveAbilities.Remove(id);
+
         public ActiveAbilityData ForActiveAbility(string id) => 
-            ActiveAbilities.TryGetValue(id, out ActiveAbilityData data) ? data : null;
+            _activeAbilities.TryGetValue(id, out ActiveAbilityData data) ? data : null;
 
         public PassiveAbilityData ForPassiveAbility(string id) => 
-            PassiveAbilities.TryGetValue(id, out PassiveAbilityData data) ? data : null;
+            _passiveAbilities.TryGetValue(id, out PassiveAbilityData data) ? data : null;
 
         public Dictionary<string, int> GetActiveAbilitiesWeight()
         {
             Dictionary<string, int > allWeights = new Dictionary<string, int>();
 
-            for (int i = 0; i < ActiveAbilities.Count; i++)
+            for (int i = 0; i < _activeAbilities.Count; i++)
             {
-                var ability = ActiveAbilities.ElementAt(i);
+                var ability = _activeAbilities.ElementAt(i);
 
                 var abilityRarity = (int)ability.Value.Rarity;
                 
@@ -47,9 +48,9 @@ namespace Data.Loaded
         {
             Dictionary<string, int > allWeights = new Dictionary<string, int>();
 
-            for (int i = 0; i < PassiveAbilities.Count; i++)
+            for (int i = 0; i < _passiveAbilities.Count; i++)
             {
-                var ability = PassiveAbilities.ElementAt(i);
+                var ability = _passiveAbilities.ElementAt(i);
 
                 var abilityRarity = (int)ability.Value.Rarity;
                 

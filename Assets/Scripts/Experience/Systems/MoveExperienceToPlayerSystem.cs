@@ -32,7 +32,7 @@ namespace Experience.Systems
 
                 ref var experienceTransform = ref experienceEntity.Get<TransformLink>().Transform;
 
-                experienceTransform.position = Vector3.MoveTowards(experienceTransform.position, playerTransform.position, experienceData.MoveSpeedTo / 100);
+                experienceTransform.position = Vector3.MoveTowards(experienceTransform.position, playerTransform.position, experienceData.MoveSpeedTo * Time.deltaTime);
             }
         }
     }

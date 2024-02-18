@@ -9,6 +9,8 @@ namespace Data.RunTime
         public Dictionary<string, int> PlayerPassiveAbilities = new();
 
         public List<string> AllPlayerAbilitiesId = new();
+
+        public int FullyUpgradedSpellsCount;
         
         public int GetActiveAbilityLevelById(string id) => 
             PlayerActiveAbilities.TryGetValue(id, out int value) ? value : 0;

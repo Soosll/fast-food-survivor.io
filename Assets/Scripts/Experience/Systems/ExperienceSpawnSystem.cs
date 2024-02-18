@@ -1,4 +1,5 @@
-﻿using Experience.Components;
+﻿using Enemy.Components;
+using Experience.Components;
 using General.Components;
 using General.Components.Tags;
 using Leopotam.Ecs;
@@ -21,6 +22,13 @@ namespace Experience.Systems
                 var enemyEntity = _spawnExperienceFilter.GetEntity(idx);
 
                 enemyEntity.Del<SpawnExperienceRequest>();
+
+                var dropChance = Random.Range(1, 101);
+
+                ref var dropExperienceChanceComponent = ref enemyEntity.Get<ExperienceDropChanceComponent>().Value;
+                
+                if(dropExperienceChanceComponent < dropChance)
+                    continue;
                 
                 ref var dropExperienceComponent = ref enemyEntity.Get<EnemyDropExperienceComponent>();
 

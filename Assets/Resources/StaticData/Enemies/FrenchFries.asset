@@ -19,5 +19,6 @@ MonoBehaviour:
   <DefaultAttackRange>k__BackingField: 2
   <DefaultAttackCooldown>k__BackingField: 2
   <DefaultExperience>k__BackingField: 1
+  <DefaultExperienceDropChance>k__BackingField: 50
   <ExperiencePrefab>k__BackingField: {fileID: 1593029656097742818, guid: cff30bbb8c8229846ba015090ddd6dca, type: 3}
   <MonoPrefab>k__BackingField: {fileID: 8062547955226047699, guid: 222ca1e99b5c75b4baedb01ce270bc19, type: 3}

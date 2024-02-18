@@ -31,6 +31,10 @@ namespace Drop.Systems
         private Dictionary<string, int> _allActiveAbilities = new ();
         private Dictionary<string, int> _allPassiveAbilities = new();
 
+        private int _popupHideCount;
+        
+        private bool _allAbilitiesChosen;
+        
         public void Run()
         {
             if(_playerLevelsUpFilter.GetEntitiesCount() == 0)
@@ -40,7 +44,7 @@ namespace Drop.Systems
 
             foreach (int idx in _playerLevelsUpFilter)
             {
-                _allActiveAbilities = GetActiveAbilitiesWeight(out var activeAbilitiesWeight); 
+                _allActiveAbilities = GetActiveNonChooseAbilitiesWeight(out var activeAbilitiesWeight); 
                 _allPassiveAbilities = GetPassiveAbilitiesWeight(out var passiveAbilitiesWeight);
                 
                 var requestEntity = _playerLevelsUpFilter.GetEntity(idx);
@@ -53,33 +57,46 @@ namespace Drop.Systems
                 
                 List<string> currentAbilitiesList = _runTimeData.PlayerChosenAbilitiesData.GetAllAbilitiesId();
 
-                if (playerChosenAbilityData.PlayerActiveAbilities.Count == 3 && playerChosenAbilityData.PlayerPassiveAbilities.Count == 3)
+                var fullyUpgradedSpellsCount = _runTimeData.PlayerChosenAbilitiesData.FullyUpgradedSpellsCount;
+
+                if (fullyUpgradedSpellsCount > abilitiesPresets.Length)
                 {
-                    for (int i = 0; i < 3; i++)
+                    _popupHideCount = fullyUpgradedSpellsCount - abilitiesPresets.Length;
+                }
+
+                var currentPopupCount = abilitiesPresets.Length - _popupHideCount;
+                
+                if (playerChosenAbilityData.PlayerActiveAbilities.Count == 3 && playerChosenAbilityData.PlayerPassiveAbilities.Count == 3)
+                    _allAbilitiesChosen = true;
+                
+                if (_allAbilitiesChosen)
+                {
+                    for (int i = 0; i < currentPopupCount; i++)
                     {
-                        var randomAbilityId = GetRandomAbilityId(currentAbilitiesList);
+                        var randomAbilityId = GetRandomPlayerAbilityId(currentAbilitiesList);
+                        currentAbilitiesList.Remove(randomAbilityId);
                         SendChosenAbility(randomAbilityId);
                         RemoveAbilityIdFromAbleAbilities(randomAbilityId);
                     }
                     
                     continue;
-                } // ЕСЛИ ВСЕ СЛОТЫ ПОД СПОСОБНОСТИ ЗАБИТЫ 
+                } // Если абилки заполнены
 
-                if (playerChosenAbilityData.PlayerActiveAbilities.Count == 4)
+                if (playerChosenAbilityData.PlayerActiveAbilities.Count == 3)
                     ChangePresetParameters(presetData, AbilityPreset.Passive);
-                
-                if (playerChosenAbilityData.PlayerPassiveAbilities.Count == 4)
+
+                if (playerChosenAbilityData.PlayerPassiveAbilities.Count == 3)
                     ChangePresetParameters(presetData, AbilityPreset.Active);
                 
-                for (int i = 0; i < abilitiesPresets.Length; i++)
+                for (int i = 0; i < currentPopupCount; i++)
                 {
-                    var randomAbilityId = TryToGetOwnedAbility(currentAbilitiesList);
+                    var randomAbilityId = TryToGetOwnedAbility(currentAbilitiesList); // Шанс показать способность, уже доступную игроку
                     
                     if (randomAbilityId != null)
                     {
+                        SendChosenAbility(randomAbilityId);
                         RemoveAbilityIdFromAbleAbilities(randomAbilityId);
                         currentAbilitiesList.Remove(randomAbilityId);
-                        SendChosenAbility(randomAbilityId);
                         continue;
                     }
                     
@@ -89,10 +106,10 @@ namespace Drop.Systems
 
                         if (activeAbilityId == null)
                         {
-                            var random = GetRandomAbilityId(currentAbilitiesList);
+                            var random = GetRandomPlayerAbilityId(currentAbilitiesList);
+                            SendChosenAbility(random);
                             RemoveAbilityIdFromAbleAbilities(random);
                             currentAbilitiesList.Remove(random);
-                            SendChosenAbility(random);
                             continue;
                         }
                         
@@ -106,6 +123,16 @@ namespace Drop.Systems
                     if (abilitiesPresets[i] == AbilityPreset.Passive)
                     {
                        string passiveAbilityId = GetRandomPassiveAbilityByWeight(_allPassiveAbilities, passiveAbilitiesWeight);
+                       var random = GetRandomPlayerAbilityId(currentAbilitiesList);
+
+                       if (passiveAbilityId == null && random != null)
+                       {
+                           SendChosenAbility(random);
+                           RemoveAbilityIdFromAbleAbilities(random);
+                           currentAbilitiesList.Remove(random);
+                           continue;
+                       }
+                       
                        SendChosenAbility(passiveAbilityId);
                        var weightValue = GetAbilityWeightValue(_allPassiveAbilities, passiveAbilityId);
                        passiveAbilitiesWeight -= weightValue;
@@ -126,17 +153,20 @@ namespace Drop.Systems
 
         private string TryToGetOwnedAbility(List<string> currentAbilitiesList)
         {
+            if (currentAbilitiesList.Count == 0)
+                return null;
+            
             string firstCheckResult = null;
             string secondCheckResult = null;
 
             if (GetOwnedAbilityChance())
-                firstCheckResult = GetRandomAbilityId(currentAbilitiesList);
+                firstCheckResult = GetRandomPlayerAbilityId(currentAbilitiesList);
             
             else
                 return null;
 
             if (GetOwnedAbilityChance())
-                secondCheckResult = GetRandomAbilityId(currentAbilitiesList);
+                secondCheckResult = GetRandomPlayerAbilityId(currentAbilitiesList);
             
             else
                 return null;
@@ -144,8 +174,6 @@ namespace Drop.Systems
             if (firstCheckResult == secondCheckResult)
                 return null;
 
-            currentAbilitiesList.Remove(firstCheckResult);
-            
             return firstCheckResult;
         }
 
@@ -175,8 +203,11 @@ namespace Drop.Systems
             return false;
         }
 
-        private string GetRandomAbilityId(List<string> currentAbilitiesPool)
+        private string GetRandomPlayerAbilityId(List<string> currentAbilitiesPool)
         {
+            if (currentAbilitiesPool.Count == 0)
+                return null;
+            
             string randomAbilityId = null;
 
             randomAbilityId = currentAbilitiesPool[Random.Range(0, currentAbilitiesPool.Count)];
@@ -191,6 +222,21 @@ namespace Drop.Systems
         {
             for (int i = 0; i < presetData.AbilitiesPresets.Length; i++)
                 presetData.AbilitiesPresets[i] = newPresetParameter;
+        }
+
+        private Dictionary<string, int> GetActiveNonChooseAbilitiesWeight(out int activeAbilitiesWeight)
+        {
+            var playersAbilities = _runTimeData.PlayerChosenAbilitiesData.GetAllAbilitiesId();
+            
+            var allActiveAbilities = _loadedData.AbilitiesLibrary.GetActiveAbilitiesWeight();
+
+            for (int i = 0; i < playersAbilities.Count; i++)
+            {
+                allActiveAbilities.Remove(playersAbilities[i]);
+            }
+            
+            activeAbilitiesWeight = allActiveAbilities.Sum(s => s.Value);
+            return allActiveAbilities;
         }
 
         private Dictionary<string, int> GetPassiveAbilitiesWeight(out int passiveAbilitiesWeight)
@@ -208,21 +254,6 @@ namespace Drop.Systems
             return allPassiveAbilities;
         }
 
-        private Dictionary<string, int> GetActiveAbilitiesWeight(out int activeAbilitiesWeight)
-        {
-            var playersAbilities = _runTimeData.PlayerChosenAbilitiesData.GetAllAbilitiesId();
-            
-            var allActiveAbilities = _loadedData.AbilitiesLibrary.GetActiveAbilitiesWeight();
-
-            for (int i = 0; i < playersAbilities.Count; i++)
-            {
-                allActiveAbilities.Remove(playersAbilities[i]);
-            }
-            
-            activeAbilitiesWeight = allActiveAbilities.Sum(s => s.Value);
-            return allActiveAbilities;
-        }
-
         private string GetRandomActiveAbilityByWeight(Dictionary<string, int> allActiveAbilities, int activeAbilitiesWeight)
         {
             var randomWeight = Random.Range(0, activeAbilitiesWeight);
@@ -232,10 +263,10 @@ namespace Drop.Systems
                 var abilitiesElement = allActiveAbilities.ElementAt(j);
                 randomWeight -= abilitiesElement.Value;
 
-                
                 if (randomWeight <= 0)
                     return abilitiesElement.Key;
             }
+            
             return null;
         }
 

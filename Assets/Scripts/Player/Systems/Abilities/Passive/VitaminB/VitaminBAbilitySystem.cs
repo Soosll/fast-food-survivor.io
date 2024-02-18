@@ -1,7 +1,9 @@
-﻿using Data.Loaded;
+﻿using Data.Enums;
+using Data.Loaded;
 using Leopotam.Ecs;
 using Player.Components.Abilities.Main;
 using Player.Components.Stats;
+using UnityEngine;
 
 namespace Player.Systems.Abilities.Passive.VitaminB
 {
@@ -17,11 +19,14 @@ namespace Player.Systems.Abilities.Passive.VitaminB
         
         public void Init()
         {
-            _abilityId = "VitaminB";
+            _abilityId = AbilitiesId.VitaminB.ToString();
         }
 
         public void Run()
         {
+            if(_initAbilitiesFilter.GetEntitiesCount() == 0)
+                return;
+            
             var playerStatsEntity = _playerStatsFilter.GetEntity(0);
 
             foreach (int idx in _initAbilitiesFilter)
@@ -35,13 +40,9 @@ namespace Player.Systems.Abilities.Passive.VitaminB
                 
                 abilityEntity.Del<UpgradePassiveStatRequest>();
                 
-                var abilityData = _loadedData.AbilitiesLibrary.ForPassiveAbility(_abilityId);
+                ref var projectileSpeedStat = ref playerStatsEntity.Get<ProjectilesSpeedStat>();
 
-                var abilityParameters = abilityData.GetByLevel(abilityComponent.Level);
-
-               ref var projectileSpeedStat = ref playerStatsEntity.Get<ProjectilesSpeedStat>();
-
-               projectileSpeedStat.ModifiedValue = projectileSpeedStat.BaseValue + projectileSpeedStat.BaseValue / 100 * abilityParameters.Value;
+               projectileSpeedStat.ModifiedValue = projectileSpeedStat.BaseValue + projectileSpeedStat.BaseValue / 100 * abilityComponent.Value;
             }
         }
     }

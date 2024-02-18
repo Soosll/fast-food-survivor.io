@@ -105,7 +105,7 @@ public class GameRoot : MonoBehaviour
             
             .Add(new EnemySpawnSystem())
             .Add(new EnemySpawnRequestSystem())
-            .Add(new EnemyDefaultInitSystem())
+            .Add(new DefaultEnemyInitSystem())
             .Add(new EnemyDirectionFindSystem())
             .Add(new EnemyAttackRangeCheckSystem())
             .Add(new EnemyKnockbackSystem())

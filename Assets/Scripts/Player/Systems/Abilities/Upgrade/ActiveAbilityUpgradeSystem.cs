@@ -26,25 +26,22 @@ namespace Player.Systems.Abilities.Upgrade
 
             foreach (int i in _upgradeAbilitiesRequestFilter)
             {
-                var entityRequest = _upgradeAbilitiesRequestFilter.GetEntity(i);
-                var requestId = entityRequest.Get<UpgradeAbilityRequest>().Id;
+                var requestEntity = _upgradeAbilitiesRequestFilter.GetEntity(i);
+                var requestId = requestEntity.Get<UpgradeAbilityRequest>().Id;
 
                 foreach (int idx in _initAbilitiesFilter)
                 {
-                    var initAbility = _initAbilitiesFilter.GetEntity(idx);
+                    var abilityEntity = _initAbilitiesFilter.GetEntity(idx);
 
-                    ref var abilityComponent = ref initAbility.Get<PlayerActiveAbilityComponent>();
-
-
+                    ref var abilityComponent = ref abilityEntity.Get<PlayerActiveAbilityComponent>();
+                    
                     if (abilityComponent.Id != requestId)
                         continue;
 
-                    Debug.Log("Апгрейжу");
+                    requestEntity.Del<UpgradeAbilityRequest>();
                     
-                    entityRequest.Del<UpgradeAbilityRequest>();
-
                     abilityComponent.Level++;
-
+                    
                     var abilityData = _loadedData.AbilitiesLibrary.ForActiveAbility(requestId);
 
                     var abilityParameters = abilityData.GetByLevel(abilityComponent.Level);
@@ -62,9 +59,16 @@ namespace Player.Systems.Abilities.Upgrade
                     abilityComponent.CritMultiplyer = abilityParameters.CritMultiplyer;
                     abilityComponent.HitboxDelay = abilityParameters.HitboxDelay;
                     abilityComponent.ProjectilePrefab = abilityData.ProjectilePrefab;
-
+                    
                     _runTimeData.PlayerChosenAbilitiesData.PlayerActiveAbilities[abilityComponent.Id] = abilityComponent.Level;
                     
+                    if (abilityComponent.Level == abilityData.MaxLevel - 1)
+                    {
+                        _loadedData.AbilitiesLibrary.RemoveActiveElement(abilityComponent.Id);
+                        _runTimeData.PlayerChosenAbilitiesData.PlayerActiveAbilities.Remove(abilityComponent.Id);
+                        _runTimeData.PlayerChosenAbilitiesData.AllPlayerAbilitiesId.Remove(abilityComponent.Id);
+                        _runTimeData.PlayerChosenAbilitiesData.FullyUpgradedSpellsCount++;
+                    }
                 }
             }
             

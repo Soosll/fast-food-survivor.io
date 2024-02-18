@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: FastSneakers
   m_EditorClassIdentifier: 
   Id: FastSneakers
-  AbilitySprite: {fileID: 21300000, guid: 4626e0d8af45151458fcad6489839485, type: 3}
+  AbilitySprite: {fileID: 21300000, guid: efa9d7a885226644b90389b5b8fe4ad8, type: 3}
   Rarity: 40
   MaxLevel: 5
   PassiveAbilityParameters:
   - Description: Increase move speed by 10 %
     InPercent: 1
-    Value: 50
+    Value: 10
   - Description: Increase move speed by 20 %
     InPercent: 1
     Value: 20

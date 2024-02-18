@@ -20,6 +20,7 @@ namespace Player.Systems.Abilities.Active.Weight
 
         private EcsFilter<InitAbilityTag>.Exclude<CooldownComponent> _initAbilitiesFilter;
         private EcsFilter<InitPlayerTag, FoundTargetTag> _playersFilter;
+        private EcsFilter<InitEnemyTag> _enemiesFilter;
 
         private string _abilityId;
         
@@ -33,12 +34,11 @@ namespace Player.Systems.Abilities.Active.Weight
             if(_playersFilter.GetEntitiesCount() == 0)
                 return;
 
-            var playerEntity = _playersFilter.GetEntity(0);
-
-            ref var closestPlayerTarget = ref playerEntity.Get<ClosestTargetPositionComponent>();
-            
             foreach (int idx in _initAbilitiesFilter)
             {
+                var randomEnemyEntity = _enemiesFilter.GetEntity(Random.Range(0, _enemiesFilter.GetEntitiesCount()));
+                
+                
                 var abilityEntity = _initAbilitiesFilter.GetEntity(idx);
 
                 ref var abilityComponent = ref abilityEntity.Get<PlayerActiveAbilityComponent>();
@@ -61,8 +61,10 @@ namespace Player.Systems.Abilities.Active.Weight
 
                     ref var fallProjectileComponent = ref projectileEntity.Get<FallProjectileComponent>();
 
-                    fallProjectileComponent.TargetFallPoint = closestPlayerTarget.Position;
-                    fallProjectileComponent.BeginFallPoint = closestPlayerTarget.Position + new Vector3(0, 15, 0);
+                    ref var randomEnemyTransform = ref randomEnemyEntity.Get<TransformLink>().Transform;
+
+                    fallProjectileComponent.TargetFallPoint = randomEnemyTransform.position;
+                    fallProjectileComponent.BeginFallPoint = randomEnemyTransform.position + new Vector3(0, 15, 0);
                     
                    var monoPrefab = Object.Instantiate(projectilePrefab, fallProjectileComponent.BeginFallPoint, Quaternion.identity);
 

@@ -1,4 +1,5 @@
 ﻿using Data.Loaded;
+using Data.RunTime;
 using Leopotam.Ecs;
 using Main.Components;
 using Player.Components.Abilities.Main;
@@ -10,6 +11,8 @@ namespace Player.Systems.Abilities.Init
     public class PassiveAbilityInitSystem : IEcsRunSystem
     {
         private EcsWorld _world;
+
+        private RunTimeData _runTimeData;
         private LoadedData _loadedData;
 
         private EcsFilter<InitAbilityRequest> _initAbilityRequestFilter;
@@ -41,6 +44,9 @@ namespace Player.Systems.Abilities.Init
 
                 requestEntity.Get<InitAbilityTag>();
                 requestEntity.Get<UpgradePassiveStatRequest>();
+                
+                _runTimeData.PlayerChosenAbilitiesData.AllPlayerAbilitiesId.Add(passiveAbilityComponent.Id);
+                _runTimeData.PlayerChosenAbilitiesData.PlayerPassiveAbilities.Add(passiveAbilityComponent.Id, passiveAbilityComponent.Level);
             }
             
             if(_initAbilityRequestFilter.GetEntitiesCount() == 0)

@@ -25,7 +25,7 @@ namespace Projectiles.Systems.Fall
 
                 var fallDirection = fallProjectileComponent.TargetFallPoint - projectileEntityTransform.position;
                 
-                if (fallDirection.magnitude < 0.1f)
+                if (fallDirection.magnitude <= 0.3f)
                 {
                     projectileEntity.Del<FallProjectileTag>();
                     projectileEntity.Get<ReachedFallPointTag>();

@@ -18,7 +18,7 @@ MonoBehaviour:
   MaxLevel: 5
   ProjectilePrefab: {fileID: 6125117622347907714, guid: 6ed78a7c70bbee04e9aa610acaf162ca, type: 3}
   ActiveAbilityParameters:
-  - Description: Fall weight from sky on closest enemy.
+  - Description: Fall weight from sky on random enemy.
     Amount: 1
     Area: 1
     Cooldown: 5

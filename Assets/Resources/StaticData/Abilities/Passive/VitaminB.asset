@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VitaminB
   m_EditorClassIdentifier: 
   Id: VitaminB
-  AbilitySprite: {fileID: 0}
+  AbilitySprite: {fileID: 21300000, guid: 17a47ae1f8c2f774fbd1d6a668c761c7, type: 3}
   Rarity: 60
   MaxLevel: 5
   PassiveAbilityParameters:

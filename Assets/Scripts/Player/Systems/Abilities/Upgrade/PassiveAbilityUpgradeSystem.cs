@@ -1,8 +1,10 @@
 ﻿using Data.Loaded;
+using Data.RunTime;
 using Leopotam.Ecs;
 using Main.Components;
 using Player.Components.Abilities.Main;
 using Player.Components.Stats;
+using UnityEngine;
 using Zun010.LeoEcsExtensions;
 
 namespace Player.Systems.Abilities.Upgrade
@@ -10,6 +12,8 @@ namespace Player.Systems.Abilities.Upgrade
     public class PassiveAbilityUpgradeSystem : IEcsRunSystem
     {
         private EcsWorld _world;
+
+        private RunTimeData _runTimeData;
         private LoadedData _loadedData;
 
         private EcsFilter<UpgradeAbilityRequest> _upgradeAbilityRequestFilter;
@@ -23,8 +27,7 @@ namespace Player.Systems.Abilities.Upgrade
             foreach (int i in _upgradeAbilityRequestFilter)
             {
                 var requestEntity = _upgradeAbilityRequestFilter.GetEntity(i);
-
-                var requestId = requestEntity.Get<InitAbilityRequest>().Id;
+                var requestId = requestEntity.Get<UpgradeAbilityRequest>().Id;
                 
                 foreach (int idx in _initAbilitiesFilter)
                 {
@@ -32,25 +35,36 @@ namespace Player.Systems.Abilities.Upgrade
 
                     ref var passiveAbilityComponent = ref abilityEntity.Get<PassiveAbilityComponent>();
 
-                    if(requestId != passiveAbilityComponent.Id)
+                    if(passiveAbilityComponent.Id != requestId)
                         continue;
                     
                     requestEntity.Del<UpgradeAbilityRequest>();
 
-                    var abilityData = _loadedData.AbilitiesLibrary.ForPassiveAbility(requestId);
+                    passiveAbilityComponent.Level++;
 
-                    var parametersData = abilityData.GetByLevel(passiveAbilityComponent.Level);
+                    var abilityData = _loadedData.AbilitiesLibrary.ForPassiveAbility(requestId);
+                    
+                    var abilityParameters = abilityData.GetByLevel(passiveAbilityComponent.Level);
                 
                     passiveAbilityComponent.Id = abilityData.Id;
-                    passiveAbilityComponent.Value = parametersData.Value;
+                    passiveAbilityComponent.Value = abilityParameters.Value;
 
-                    requestEntity.Get<InitAbilityTag>();
-                    requestEntity.Get<UpgradePassiveStatRequest>();
+                    abilityEntity.Get<UpgradePassiveStatRequest>();
+                    
+                    _runTimeData.PlayerChosenAbilitiesData.PlayerPassiveAbilities[passiveAbilityComponent.Id] = passiveAbilityComponent.Level;
+                    
+                    if (passiveAbilityComponent.Level == abilityData.MaxLevel - 1)
+                    {
+                        _loadedData.AbilitiesLibrary.RemovePassiveElement(passiveAbilityComponent.Id);
+                        _runTimeData.PlayerChosenAbilitiesData.PlayerPassiveAbilities.Remove(passiveAbilityComponent.Id);
+                        _runTimeData.PlayerChosenAbilitiesData.AllPlayerAbilitiesId.Remove(passiveAbilityComponent.Id);
+                        _runTimeData.PlayerChosenAbilitiesData.FullyUpgradedSpellsCount++;
+                    }
                 }
-                
-                if (_upgradeAbilityRequestFilter.GetEntitiesCount() == 0)
-                    _world.NewEntityWith<AfterSpellChooseContinueGameRequest>();
             }
+            
+            if (_upgradeAbilityRequestFilter.GetEntitiesCount() == 0)
+                _world.NewEntityWith<AfterSpellChooseContinueGameRequest>();
         }
     }
 }

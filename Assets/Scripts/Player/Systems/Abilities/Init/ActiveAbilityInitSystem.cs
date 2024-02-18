@@ -14,16 +14,16 @@ namespace Player.Systems.Abilities.Init
         private RunTimeData _runTimeData;
         private LoadedData _loadedData;
 
-        private EcsFilter<InitAbilityRequest> _initRequestFilter;
+        private EcsFilter<InitAbilityRequest> _initAbilityRequestFilter;
         
         public void Run()
         {
-            if(_initRequestFilter.GetEntitiesCount() == 0)
+            if(_initAbilityRequestFilter.GetEntitiesCount() == 0)
                 return;
             
-            foreach (int idx in _initRequestFilter)
+            foreach (int idx in _initAbilityRequestFilter)
             {
-                var requestEntity = _initRequestFilter.GetEntity(idx);
+                var requestEntity = _initAbilityRequestFilter.GetEntity(idx);
                 
                 var requestId = requestEntity.Get<InitAbilityRequest>().Id;
                 
@@ -37,28 +37,28 @@ namespace Player.Systems.Abilities.Init
                 var abilityParameters = abilityData.GetByLevel(0);
                 
                 var abilityEntity = _world.NewEntity();
-                ref var abilityComponent = ref abilityEntity.Get<PlayerActiveAbilityComponent>();
+                ref var activeAbilityComponent = ref abilityEntity.Get<PlayerActiveAbilityComponent>();
                 
-                abilityComponent.Id = abilityData.Id;
-                abilityComponent.Amount = abilityParameters.Amount;
-                abilityComponent.Area = abilityParameters.Area;
-                abilityComponent.Cooldown = abilityParameters.Cooldown;
-                abilityComponent.Damage = abilityParameters.Damage;
-                abilityComponent.Duration = abilityParameters.Duration;
-                abilityComponent.Knockback = abilityParameters.Knockback;
-                abilityComponent.Pierce = abilityParameters.Pierce;
-                abilityComponent.Speed = abilityParameters.Speed;
-                abilityComponent.CritChance = abilityParameters.CritChance;
-                abilityComponent.CritMultiplyer = abilityParameters.CritMultiplyer;
-                abilityComponent.HitboxDelay = abilityParameters.HitboxDelay;
-                abilityComponent.ProjectilePrefab = abilityData.ProjectilePrefab;
+                activeAbilityComponent.Id = abilityData.Id;
+                activeAbilityComponent.Amount = abilityParameters.Amount;
+                activeAbilityComponent.Area = abilityParameters.Area;
+                activeAbilityComponent.Cooldown = abilityParameters.Cooldown;
+                activeAbilityComponent.Damage = abilityParameters.Damage;
+                activeAbilityComponent.Duration = abilityParameters.Duration;
+                activeAbilityComponent.Knockback = abilityParameters.Knockback;
+                activeAbilityComponent.Pierce = abilityParameters.Pierce;
+                activeAbilityComponent.Speed = abilityParameters.Speed;
+                activeAbilityComponent.CritChance = abilityParameters.CritChance;
+                activeAbilityComponent.CritMultiplyer = abilityParameters.CritMultiplyer;
+                activeAbilityComponent.HitboxDelay = abilityParameters.HitboxDelay;
+                activeAbilityComponent.ProjectilePrefab = abilityData.ProjectilePrefab;
                 abilityEntity.Get<InitAbilityTag>();
                 
-                _runTimeData.PlayerChosenAbilitiesData.AllPlayerAbilitiesId.Add(abilityComponent.Id);
-                _runTimeData.PlayerChosenAbilitiesData.PlayerActiveAbilities.Add(abilityComponent.Id, abilityComponent.Level);
+                _runTimeData.PlayerChosenAbilitiesData.AllPlayerAbilitiesId.Add(activeAbilityComponent.Id);
+                _runTimeData.PlayerChosenAbilitiesData.PlayerActiveAbilities.Add(activeAbilityComponent.Id, activeAbilityComponent.Level);
             }
             
-            if(_initRequestFilter.GetEntitiesCount() == 0)
+            if(_initAbilityRequestFilter.GetEntitiesCount() == 0)
                 _world.NewEntityWith<AfterSpellChooseContinueGameRequest>();
         }
     }
