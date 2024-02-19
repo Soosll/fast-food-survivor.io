@@ -33,7 +33,7 @@ namespace Drop.Systems
 
         private int _popupHideCount;
         
-        private bool _allAbilitiesChosen;
+        private bool _playerChooseAllAbilities;
         
         public void Run()
         {
@@ -60,16 +60,14 @@ namespace Drop.Systems
                 var fullyUpgradedSpellsCount = _runTimeData.PlayerChosenAbilitiesData.FullyUpgradedSpellsCount;
 
                 if (fullyUpgradedSpellsCount > abilitiesPresets.Length)
-                {
                     _popupHideCount = fullyUpgradedSpellsCount - abilitiesPresets.Length;
-                }
-
+                
                 var currentPopupCount = abilitiesPresets.Length - _popupHideCount;
                 
                 if (playerChosenAbilityData.PlayerActiveAbilities.Count == 3 && playerChosenAbilityData.PlayerPassiveAbilities.Count == 3)
-                    _allAbilitiesChosen = true;
+                    _playerChooseAllAbilities = true;
                 
-                if (_allAbilitiesChosen)
+                if (_playerChooseAllAbilities)
                 {
                     for (int i = 0; i < currentPopupCount; i++)
                     {

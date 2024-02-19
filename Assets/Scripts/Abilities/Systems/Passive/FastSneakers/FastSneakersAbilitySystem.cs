@@ -1,12 +1,13 @@
-﻿using Abilities.Components.Main;
-using Data.Enums;
+﻿using Abilities.Components.Identification.Passive;
+using Abilities.Components.Main;
 using Data.Loaded;
 using Leopotam.Ecs;
 using Player.Components.Stats;
+using UnityEngine;
 
 namespace Abilities.Systems.Passive.FastSneakers
 {
-    public class FastSneakersAbilitySystem : IEcsInitSystem, IEcsRunSystem
+    public class FastSneakersAbilitySystem : IEcsRunSystem
     {
         private EcsWorld _world;
         private LoadedData _loadedData;
@@ -14,26 +15,18 @@ namespace Abilities.Systems.Passive.FastSneakers
         private EcsFilter<InitAbilityTag, UpgradePassiveStatRequest> _initAbilitiesFilter;
         private EcsFilter<PlayerStatsTag> _playerStatsFilter;
 
-        private string _abilityId;
-
-        public void Init()
-        {
-            _abilityId = AbilitiesId.FastSneakers.ToString();
-        }
-
         public void Run()
         {
             if(_initAbilitiesFilter.GetEntitiesCount() == 0)
                 return;
+            
+            Debug.Log("Нашел ботинки");
             
             foreach (int idx in _initAbilitiesFilter)
             {
                 var abilityEntity = _initAbilitiesFilter.GetEntity(idx);
 
                 ref var abilityComponent = ref abilityEntity.Get<PassiveAbilityComponent>();
-
-                if (abilityComponent.Id != _abilityId)
-                    continue;
 
                 abilityEntity.Del<UpgradePassiveStatRequest>();
                 

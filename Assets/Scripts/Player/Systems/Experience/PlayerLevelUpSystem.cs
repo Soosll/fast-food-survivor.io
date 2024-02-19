@@ -22,12 +22,13 @@ namespace Player.Systems.Experience
 
             playerEntity.Del<PlayerLevelUpRequest>();
 
-            playerEntity.Get<PlayerExperienceComponent>().Value = 0;
+            playerEntity.Get<PlayerExperienceComponent>().CurrentValue = 0;
             
             ref var playerLevel = ref playerEntity.Get<PlayerLevelComponent>().Level;
 
             playerLevel++;
 
+            _world.NewEntityWith<PlayerLevelUpEvent>();
             _world.NewEntityWith<ChooseAbilityRequest>();
         }
     }

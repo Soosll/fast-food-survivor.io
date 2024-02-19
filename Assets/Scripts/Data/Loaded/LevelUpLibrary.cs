@@ -11,5 +11,9 @@ namespace Data.Loaded
 
         public int GetExperienceByLevel(int level) => 
             _levelsUpData.LevelExperience[level];
+        
+        public int GetExperienceToNextLevel(int level) =>
+            _levelsUpData.LevelExperience[level + 1];
+
     }
 }

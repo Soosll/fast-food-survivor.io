@@ -2,6 +2,7 @@
 {
     public struct PlayerExperienceComponent
     {
-        public float Value;
+        public float CurrentValue;
+        public float ToNextLevelValue;
     }
 }

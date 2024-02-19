@@ -34,6 +34,7 @@ using Projectiles.Systems.Garlic;
 using Projectiles.Systems.Throw;
 using Spawners.Systems;
 using UI.Systems;
+using UI.Systems.Observe;
 using UnityEngine;
 using Zun010.LeoEcsExtensions;
 
@@ -91,6 +92,8 @@ public class GameRoot : MonoBehaviour
             .Add(new PlayerAccrueExperienceSystem())
             .Add(new PlayerLevelUpCheckSystem())
             .Add(new PlayerLevelUpSystem())
+            .Add(new PlayerExperienceObserveSystem())
+            .Add(new PlayerLevelObserveSystem())
             
             .Add(new SpawnersCreateSystem())
             .Add(new SpawnersDistributeSystem())

@@ -7,6 +7,7 @@ using Player.Components.Experience;
 using Player.Components.Main;
 using Projectiles.Components;
 using Projectiles.Components.General;
+using Zun010.LeoEcsExtensions;
 
 namespace Player.Systems.Experience
 {
@@ -28,11 +29,13 @@ namespace Player.Systems.Experience
             {
                 var experienceEntity = _accrueExperienceFilter.GetEntity(idx);
 
-                ref var playerExperience = ref playerEntity.Get<PlayerExperienceComponent>().Value;
+                ref var playerExperience = ref playerEntity.Get<PlayerExperienceComponent>().CurrentValue;
 
                 ref var experienceToAccrue = ref experienceEntity.Get<TakeableExperienceComponent>().Value;
 
                 playerExperience += experienceToAccrue;
+
+                _world.NewEntityWith<PlayerExperienceIncreasedEvent>();
                 
                 experienceEntity.Del<AccureExperienceTag>();
                 experienceEntity.Get<DestroyObjectTag>();

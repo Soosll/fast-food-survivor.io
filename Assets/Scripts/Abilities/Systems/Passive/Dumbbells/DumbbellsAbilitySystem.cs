@@ -1,4 +1,5 @@
-﻿using Abilities.Components.Main;
+﻿using Abilities.Components.Identification.Passive;
+using Abilities.Components.Main;
 using Data.Enums;
 using Data.Loaded;
 using Leopotam.Ecs;
@@ -6,21 +7,16 @@ using Player.Components.Stats;
 
 namespace Abilities.Systems.Passive.Dumbbells
 {
-    public class DumbbellsAbilitySystem : IEcsInitSystem, IEcsRunSystem
+    public class DumbbellsAbilitySystem : IEcsRunSystem
     {
         private EcsWorld _world;
 
         private LoadedData _loadedData;
         
-        private EcsFilter<InitAbilityTag, UpgradePassiveStatRequest> _initAbilityRequestsFilter;
+        private EcsFilter<InitAbilityTag, DumbbellsAbilityTag, UpgradePassiveStatRequest> _initAbilityRequestsFilter;
         private EcsFilter<PlayerStatsTag> _playerStatsFilter;
 
         private string _abilityId;
-        
-        public void Init()
-        {
-            _abilityId = AbilitiesId.Dumbbells.ToString();
-        }
 
         public void Run()
         {
@@ -32,9 +28,6 @@ namespace Abilities.Systems.Passive.Dumbbells
                 var abilityEntity = _initAbilityRequestsFilter.GetEntity(idx);
 
                 ref var abilityComponent = ref abilityEntity.Get<PassiveAbilityComponent>();
-                
-                if(abilityComponent.Id != _abilityId)
-                    continue;
                 
                 abilityEntity.Del<UpgradePassiveStatRequest>();
                 

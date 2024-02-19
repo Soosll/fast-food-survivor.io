@@ -24,12 +24,13 @@ namespace Player.Systems.Experience
             {
                 var playerEntity = _playersFilter.GetEntity(0);
 
-                ref var playerExperience = ref playerEntity.Get<PlayerExperienceComponent>().Value;
+                ref var playerExperienceComponent = ref playerEntity.Get<PlayerExperienceComponent>();
                 ref var playerLevel = ref playerEntity.Get<PlayerLevelComponent>().Level;
 
-                var experienceToTheNextLevel = _loadedData.LevelUpLibrary.GetExperienceByLevel(playerLevel + 1);
-
-                if (playerExperience >= experienceToTheNextLevel)
+                var experienceToTheNextLevel = _loadedData.LevelUpLibrary.GetExperienceToNextLevel(playerLevel);
+                playerExperienceComponent.ToNextLevelValue = experienceToTheNextLevel;
+                
+                if (playerExperienceComponent.CurrentValue >= playerExperienceComponent.ToNextLevelValue)
                     playerEntity.Get<PlayerLevelUpRequest>();
             }
         }

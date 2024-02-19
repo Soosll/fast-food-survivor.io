@@ -4,7 +4,7 @@ using MonoLinks.Links;
 using Player.Components;
 using Player.Components.Main;
 
-namespace Player.Systems
+namespace UI.Systems.Observe
 {
     public class PlayerHealthObserveSystem : IEcsRunSystem
     {
