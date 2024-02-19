@@ -1,6 +1,5 @@
 ﻿using Enemy.Components;
 using Leopotam.Ecs;
-using Player.Components.Abilities;
 using Projectiles.Components.Garlic;
 using UnityEngine;
 

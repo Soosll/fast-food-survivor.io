@@ -1,5 +1,5 @@
-﻿using Leopotam.Ecs;
-using Player.Components.Abilities.Main;
+﻿using Abilities.Components.Main;
+using Leopotam.Ecs;
 using Player.Components.Experience;
 using Player.Components.Main;
 using UnityEngine;

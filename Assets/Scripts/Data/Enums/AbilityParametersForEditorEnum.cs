@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Editor
+namespace Data.Enums
 {
     [Flags]
     public enum AbilityParametersForEditorEnum

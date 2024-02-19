@@ -1,3 +1,14 @@
+using Abilities.Components.Main;
+using Abilities.Systems;
+using Abilities.Systems.Active.Garlic;
+using Abilities.Systems.Active.OrangeSlingShot;
+using Abilities.Systems.Active.Weight;
+using Abilities.Systems.Identification;
+using Abilities.Systems.Init;
+using Abilities.Systems.Passive.Dumbbells;
+using Abilities.Systems.Passive.FastSneakers;
+using Abilities.Systems.Passive.VitaminB;
+using Abilities.Systems.Upgrade;
 using Camera.Systems;
 using Data.Loaded;
 using Data.RunTime;
@@ -11,20 +22,7 @@ using Leopotam.Ecs;
 using Load.Systems;
 using Main;
 using Main.Systems;
-using Player.Components.Abilities.Main;
-using Player.Components.Experience;
 using Player.Systems;
-using Player.Systems.Abilities;
-using Player.Systems.Abilities.Active;
-using Player.Systems.Abilities.Active.Garlic;
-using Player.Systems.Abilities.Active.OrangeSlingShot;
-using Player.Systems.Abilities.Active.Weight;
-using Player.Systems.Abilities.Init;
-using Player.Systems.Abilities.Passive;
-using Player.Systems.Abilities.Passive.Dumbbells;
-using Player.Systems.Abilities.Passive.FastSneakers;
-using Player.Systems.Abilities.Passive.VitaminB;
-using Player.Systems.Abilities.Upgrade;
 using Player.Systems.Experience;
 using Player.Systems.Find;
 using Player.Systems.Init;
@@ -123,6 +121,13 @@ public class GameRoot : MonoBehaviour
             .Add(new ActiveAbilityUpgradeSystem())
             .Add(new PassiveAbilityUpgradeSystem())
             
+            .Add(new SlingShotAbilityIdentificationSystem())
+            .Add(new GarlicAbilityIdentificationSystem())
+            .Add(new WeightIdentificationSystem())
+            .Add(new DumbbellsAbilityIdentificationSystem())
+            .Add(new FastSneakersAbilityIdentificationSystem())
+            .Add(new VitaminBAbilityIdentificationSystem())
+            
             .Add(new RandomAbilityChooseSystem())
             .Add(new AbilityPopupShowSystem())
             .Add(new AbilityChooseButtonListenSystem())
@@ -132,8 +137,8 @@ public class GameRoot : MonoBehaviour
 
             .Add(new OrangeSlingshotAbilitySystem())
             .Add(new GarlicAbilitySystem())
-            .Add(new GarlicDurationSystem())
-            .Add(new GarlicEndDurationSystem())
+            .Add(new GarlicProjectileDurationSystem())
+            .Add(new GarlicProjectileEndDurationSystem())
             .Add(new WeighAbilityBeginPhaseSystem())
             .Add(new WeightAbilityEndPhaseSystem())
             

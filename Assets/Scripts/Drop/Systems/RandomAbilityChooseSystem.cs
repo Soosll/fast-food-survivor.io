@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Abilities.Components.Main;
 using Data.Enums;
 using Data.Loaded;
 using Data.RunTime;
@@ -7,7 +8,6 @@ using Data.Static;
 using Drop.Components;
 using Leopotam.Ecs;
 using Player.Components;
-using Player.Components.Abilities.Main;
 using Player.Components.Experience;
 using Player.Components.Main;
 using Player.Components.Stats;

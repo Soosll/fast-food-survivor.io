@@ -1,9 +1,9 @@
-﻿using Camera.Components;
+﻿using Abilities.Components.Main;
+using Camera.Components;
 using Data.RunTime;
 using Data.Static;
 using Leopotam.Ecs;
 using Player.Components;
-using Player.Components.Abilities.Main;
 using Player.Components.Experience;
 using Player.Components.Main;
 using Player.Components.Move;

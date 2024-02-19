@@ -6,7 +6,6 @@ using Extensions;
 using Leopotam.Ecs;
 using Mailbox;
 using Player.Components;
-using Player.Components.Abilities.Main;
 using Player.Components.Experience;
 using Player.Components.Spawn;
 using Spawners.Components;
