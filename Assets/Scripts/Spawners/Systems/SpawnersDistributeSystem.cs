@@ -18,7 +18,7 @@ namespace Spawners.Systems
 
         private UnityEngine.Camera _camera;
 
-        private Vector3 _cameraCenter;
+        private Vector3 _cameraPosition;
         
         private int _distributedElements;
 
@@ -33,15 +33,10 @@ namespace Spawners.Systems
             _distributeRequestFilter.GetEntity(0).Destroy();
 
             var spawnersData = _staticData.SceneDependencies.SpawnersData;
-            
-            var width = _camera.pixelWidth;
-            var height = _camera.pixelHeight;
-            
+
             var offsetFromCameraBound = spawnersData.OffsetFromCameraBounds;
 
-            var cameraZPosition = _camera.transform.position.z;
-
-            _cameraCenter = _camera.ScreenToWorldPoint(_camera.transform.position);
+            _cameraPosition = _camera.transform.position;
 
             var cameraWorldScale = _runTimeData.CameraParameters.WorldScale;
             
@@ -70,7 +65,7 @@ namespace Spawners.Systems
                 
                 entityTransform.Transform.position = angularPoint + new Vector3(0, offsetFromCameraBound, 0) - new Vector3(currentDistance, 0, 0);
 
-                var offsetFromCameraCenter = _cameraCenter - entityTransform.Transform.position;
+                var offsetFromCameraCenter = _cameraPosition - entityTransform.Transform.position;
 
                 entity.Get<SpawnerOffsetFromCameraComponent>().Value = offsetFromCameraCenter;
             }
@@ -96,7 +91,7 @@ namespace Spawners.Systems
                 
                 entityTransform.Transform.position = angularPoint + new Vector3(offsetFromCameraBound, 0, 0) - new Vector3(0, currentDistance, 0);
                 
-                var offsetFromCameraCenter = _cameraCenter - entityTransform.Transform.position;
+                var offsetFromCameraCenter = _cameraPosition - entityTransform.Transform.position;
 
                 entity.Get<SpawnerOffsetFromCameraComponent>().Value = offsetFromCameraCenter;
             }

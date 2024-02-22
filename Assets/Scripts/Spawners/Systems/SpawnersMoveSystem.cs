@@ -29,7 +29,7 @@ namespace Spawners.Systems
 
         public void Run()
         {
-            _cameraCenter = _runTimeData.CameraParameters.WorldCenter;
+            _cameraCenter = _runTimeData.CameraParameters.CameraPosition;
 
             foreach (int idx in _distributedSpawnersFilter)
             {
@@ -39,7 +39,7 @@ namespace Spawners.Systems
 
                 var offset = spawnPointEntity.Get<SpawnerOffsetFromCameraComponent>();
 
-                spawnPointTransform.Transform.position = _cameraCenter - offset.Value;
+                spawnPointTransform.Transform.position = _camera.transform.position - offset.Value;
             }
         }
     }

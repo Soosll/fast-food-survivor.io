@@ -69,7 +69,7 @@ namespace Projectiles.Systems.Garlic
 
                         ref var rotateAroundSpeedComponent = ref projectileEntity.Get<MoveSpeedAroundComponent>().Speed;
                         var fps = 1 / Time.deltaTime;
-                        var distanceAngleInSecond = rotateAroundSpeedComponent * Time.deltaTime * StaticGameParameters.MoveAroundMultiplyer * fps;
+                        var distanceAngleInSecond = rotateAroundSpeedComponent * Time.deltaTime * GameConstants.MoveAroundMultiplyer * fps;
                         var fullCircleTurnOverTime = 360 / distanceAngleInSecond;
                         var halfTurnOverTime = fullCircleTurnOverTime / 2;
                         

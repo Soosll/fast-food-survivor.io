@@ -14,22 +14,15 @@ namespace Enemy.Systems
         
         public void Run()
         {
-            if(_playersFilter.GetEntitiesCount() == 0)
-                return;
-        
             var playerEntity = _playersFilter.GetEntity(0);
 
             foreach (int idx in _triggeredEnemiesFilter)
             {
                 var enemyEntity = _triggeredEnemiesFilter.GetEntity(idx);
-                var enemyTransform = enemyEntity.Get<TransformLink>().Transform;
                 var enemyAttackRange = enemyEntity.Get<EnemyAttackRangeComponent>();
+                ref var enemyDistanceToTargetComponent = ref enemyEntity.Get<DistanceToTargetComponent>().Value;
                 
-                var playerTransform = playerEntity.Get<TransformLink>().Transform;
-
-                var distanceToPlayer = (playerTransform.position - enemyTransform.position).magnitude;
-
-                if (distanceToPlayer < enemyAttackRange.Value)
+                if (enemyDistanceToTargetComponent < enemyAttackRange.Value)
                     enemyEntity.Get<EnemyAttackTargetComponent>().TargetEntity = playerEntity;
 
                 else

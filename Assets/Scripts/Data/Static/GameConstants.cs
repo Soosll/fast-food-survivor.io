@@ -2,7 +2,7 @@
 
 namespace Data.Static
 {
-    public static class StaticGameParameters
+    public static class GameConstants
     {
         public const float MoveAroundMultiplyer = 250;
     }

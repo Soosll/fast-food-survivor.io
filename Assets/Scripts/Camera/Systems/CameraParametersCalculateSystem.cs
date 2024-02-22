@@ -14,15 +14,13 @@ namespace Camera.Systems
         public void Init()
         {
             _camera = UnityEngine.Camera.main;
-
-
             _runTimeData.CameraParameters.WorldScale = _camera.ScreenToWorldPoint(new Vector3(_camera.pixelWidth, _camera.pixelHeight, 0));
         }
 
         public void Run()
         {
-            var cameraCenter = _camera.ScreenToWorldPoint(_camera.transform.position);
-            _runTimeData.CameraParameters.WorldCenter = cameraCenter;
+            var cameraCenter = _camera.transform.position;
+            _runTimeData.CameraParameters.CameraPosition = cameraCenter;
         }
     }
 }

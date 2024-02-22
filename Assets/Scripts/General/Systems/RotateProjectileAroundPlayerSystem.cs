@@ -29,7 +29,7 @@ namespace General.Systems
 
                 var moveAroundComponent = entity.Get<MoveSpeedAroundComponent>();
 
-                entityTransform.RotateAround(playerTransform.Transform.position, Vector3.forward, moveAroundComponent.Speed * Time.deltaTime * StaticGameParameters.MoveAroundMultiplyer);
+                entityTransform.RotateAround(playerTransform.Transform.position, Vector3.forward, moveAroundComponent.Speed * Time.deltaTime * GameConstants.MoveAroundMultiplyer);
             }
         }
     }

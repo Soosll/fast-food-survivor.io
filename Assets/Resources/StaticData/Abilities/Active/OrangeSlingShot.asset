@@ -24,7 +24,7 @@ MonoBehaviour:
     Cooldown: 1
     CritMultiplyer: 1.1
     CritChance: 25
-    Damage: 5
+    Damage: 0
     Duration: 4
     HitboxDelay: 0.3
     Knockback: 2

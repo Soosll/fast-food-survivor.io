@@ -13,6 +13,7 @@ namespace Data.Static.UI
         [field: SerializeField] public CinemachineVirtualCameraBase MainCamera { get; private set; }
         [field: SerializeField] public SpawnersData SpawnersData { get; private set; }
         [field: SerializeField] public Transform SpawnersContainer { get; private set; }
+        [field: SerializeField] public MapBordersData MapBorders { get; private set; }
     }
 
     [Serializable]

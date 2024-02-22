@@ -108,9 +108,12 @@ public class GameRoot : MonoBehaviour
             .Add(new EnemySpawnRequestSystem())
             .Add(new DefaultEnemyInitSystem())
             .Add(new EnemyDirectionFindSystem())
+            .Add(new DistanceToPlayerCheckSystem())
             .Add(new EnemyAttackRangeCheckSystem())
             .Add(new EnemyKnockbackSystem())
             .Add(new EnemyDamageSetSystem())
+            .Add(new EnemiesOutOfMapCheckSystem())
+            .Add(new OutOfMapEnemiesDistributeSystem())
             .Add(new FromEnemyDamageSystem())
             .Add(new EnemyDestroySystem())
             

@@ -17,8 +17,8 @@ MonoBehaviour:
     SpawnParameters:
     - From: 0
       To: 3
-      SpawnCount: 22
-      SpawnRate: 5
+      SpawnCount: 55
+      SpawnRate: 55
   - EnemyId: frenchfries
     SpawnParameters:
     - From: 1
